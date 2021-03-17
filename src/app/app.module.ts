@@ -12,10 +12,14 @@ import {
   GoogleLoginProvider,
   
 } from 'lib';
+import { ParametersComponent } from './parameters/parameters.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FooterComponent } from './footer/footer.component';
+import { ReserveComponent } from './reserve/reserve.component';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, DemoComponent],
-  imports: [BrowserModule, FormsModule, HttpClientModule, SocialLoginModule],
+  declarations: [AppComponent, NavbarComponent, DemoComponent, ParametersComponent, FooterComponent, ReserveComponent],
+  imports: [BrowserModule, FormsModule, HttpClientModule, SocialLoginModule, BrowserAnimationsModule],
   providers: [
     {
       provide: 'SocialAuthServiceConfig',
