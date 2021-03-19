@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { SocialAuthService } from 'lib';
 import { SocialUser } from 'lib';
+import {ParametersComponent} from '../parameters/parameters.component';
+import {ParametersService} from '../parameters/parameters.service';
 import {
   GoogleLoginProvider,
   FacebookLoginProvider,
@@ -12,6 +14,7 @@ import {
 
 @Component({
   selector: 'app-demo',
+  providers: [ParametersService],
   templateUrl: './demo.component.html',
   styleUrls: ['./demo.component.css']
 })
@@ -19,13 +22,15 @@ export class DemoComponent implements OnInit {
 
   user: SocialUser;
   GoogleLoginProvider = GoogleLoginProvider;
+  
+  public parameter: ParametersComponent;
 
   constructor(private authService: SocialAuthService) { }
 
   ngOnInit() {
     this.authService.authState.subscribe(user => {
       this.user = user;
-    });
+    });    
   }
 
   signInWithGoogle(): void {
@@ -54,6 +59,10 @@ export class DemoComponent implements OnInit {
 
   refreshGoogleToken(): void {
     this.authService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID);
+  }
+  
+  addUser(): void{
+    this.parameter.addUser(this.user.id);
   }
 
 }

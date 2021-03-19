@@ -12,4 +12,18 @@ export class ReserveComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+
+  prev(): void {
+
+  }
+
+  next(): void {
+    
+  }
+
+  init(year, month): void {
+
+  }
+
 }

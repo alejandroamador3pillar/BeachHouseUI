@@ -21,8 +21,13 @@
       <h4 class="card-title">{{ user.name }}</h4>
       <p class="card-text">{{ user.email }}</p>
     </div>
+    <div>
+      &nbsp;
+      <p><b>{{user.id}}</b></p>
+    </div>
     <div class="card-block" *ngIf="user.provider === GoogleLoginProvider.PROVIDER_ID">
-      <button class="btn" (click)="refreshGoogleToken()">Sign In</button>
+      <!-- <button class="btn" (click)="refreshGoogleToken()">Sign In</button> -->
+        <button class="btn" (click)="addUser()">Save User</button>           
     </div>
     <div class="card-block">
       <button class="btn btn-danger" (click)="signOut()">Sign out</button>
