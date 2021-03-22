@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ReserveService} from './reserve.service';
 
 @Component({
   selector: 'app-reserve',
@@ -7,23 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReserveComponent implements OnInit {
 
-  constructor() { }
+  reservations: ReserveComponent[] = [];
+
+  constructor(private reservationsService: ReserveService) { }
 
   ngOnInit(): void {
+    this.getReservations();
   }
 
-
-
-  prev(): void {
-
+  getReservations(): void {
+    this.reservationsService.getReservations()
+      .subscribe(reservations => this.reservations = reservations);
   }
 
-  next(): void {
-    
-  }
-
-  init(year, month): void {
-
-  }
+  
 
 }
