@@ -1,8 +1,10 @@
 import { Component, OnInit ,  ChangeDetectionStrategy,  ViewChild,  TemplateRef,} from '@angular/core';
-import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours,} from 'date-fns';
+import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours, addMonths} from 'date-fns';
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView,} from 'angular-calendar';
+import { CalendarService} from './calendar.service';
+import { ReserveComponent} from '../reserve/reserve.component';
 
 const colors: any = {
   red: {
@@ -17,6 +19,19 @@ const colors: any = {
     primary: '#e3bc08',
     secondary: '#FDF1BA',
   },
+  reserved: {
+    primary: '#D24DFF',
+    secondary: '#D24DFF',
+  },
+  enable: {
+    primary: '#D24DFF',
+    secondary: '#D24DFF',
+  },
+  owned :{
+    primary: '#D24DFF',
+    secondary: '#D24DFF',
+  },
+
 };
 
 @Component({
@@ -27,6 +42,8 @@ const colors: any = {
 })
 export class CalendarComponent {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
+
+  reservations: ReserveComponent;
 
   view: CalendarView = CalendarView.Month;
 
@@ -60,11 +77,11 @@ export class CalendarComponent {
   refresh: Subject<any> = new Subject();
 
   events: CalendarEvent[] = [
-    /* {
+      /* {
       start: subDays(startOfDay(new Date()), 1),
       end: addDays(new Date(), 1),
       title: 'A 3 day event',
-      color: colors.red,
+      color: colors.gray,
       actions: this.actions,
       allDay: true,
       resizable: {
@@ -72,21 +89,22 @@ export class CalendarComponent {
         afterEnd: true,
       },
       draggable: true,
-    },
+    },  */
     {
       start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      color: colors.yellow,
+      end: addMonths(new Date(), 6),
+      title: 'Day Enable to Reserve',
+      color: colors.enable,
       actions: this.actions,
     },
-    {
+    /* {
       start: subDays(endOfMonth(new Date()), 3),
       end: addDays(endOfMonth(new Date()), 3),
       title: 'A long event that spans 2 months',
-      color: colors.blue,
+      color: colors.indigo,
       allDay: true,
-    },
-    {
+    }, */
+    /* {
       start: addHours(startOfDay(new Date()), 2),
       end: addHours(new Date(), 2),
       title: 'A draggable and resizable event',
@@ -97,12 +115,12 @@ export class CalendarComponent {
         afterEnd: true,
       },
       draggable: true,
-    }, */
+    },  */
   ];
 
   activeDayIsOpen: boolean = true;
 
-  constructor(private modal: NgbModal) {}
+  constructor(private modal: NgbModal, private calendarService: CalendarService) {}
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -168,6 +186,11 @@ export class CalendarComponent {
 
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
+  }
+
+  getReservations(start: string, end: string): void {
+    this.calendarService.getReservations()
+    .subscribe(reservations => this.reservations = reservations);
   }
 
   /* ngOnInit(): void {

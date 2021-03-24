@@ -1,6 +1,6 @@
-<div class="row text-center">
-    <div class="col-md-4">
-      <div class="btn-group">
+<div class="row text-center" style="background-color:#f6a828;">
+    <div class="col-md-4 ">
+      <!-- <div class="btn-group"> -->
         <div
           class="btn btn-primary"
           mwlCalendarPreviousView
@@ -10,13 +10,14 @@
         >
           Previous
         </div>
-        <div
+        <!-- <div
           class="btn btn-outline-secondary"
           mwlCalendarToday
           [(viewDate)]="viewDate"
         >
           Today
-        </div>
+        </div> -->
+        
         <div
           class="btn btn-primary"
           mwlCalendarNextView
@@ -26,13 +27,13 @@
         >
           Next
         </div>
-      </div>
+      <!-- </div> -->
     </div>
     <div class="col-md-4 header">
       <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
     </div>
-    <div class="col-md-4">
-      <!-- <div class="btn-group">
+    <!--<div class="col-md-4">
+       <div class="btn-group">
         <div
           class="btn btn-primary"
           (click)="setView(CalendarView.Month)"
@@ -54,8 +55,8 @@
         >
           Day
         </div>
-      </div> -->
-    </div>
+      </div> 
+    </div>-->
   </div>
   <br />
   <div [ngSwitch]="view">
@@ -70,7 +71,7 @@
       (eventTimesChanged)="eventTimesChanged($event)"
     >
     </mwl-calendar-month-view>
-    <mwl-calendar-week-view
+    <!-- <mwl-calendar-week-view
       *ngSwitchCase="CalendarView.Week"
       [viewDate]="viewDate"
       [events]="events"
@@ -78,8 +79,8 @@
       (eventClicked)="handleEvent('Clicked', $event.event)"
       (eventTimesChanged)="eventTimesChanged($event)"
     >
-    </mwl-calendar-week-view>
-    <mwl-calendar-day-view
+    </mwl-calendar-week-view> -->
+    <!-- <mwl-calendar-day-view
       *ngSwitchCase="CalendarView.Day"
       [viewDate]="viewDate"
       [events]="events"
@@ -87,7 +88,7 @@
       (eventClicked)="handleEvent('Clicked', $event.event)"
       (eventTimesChanged)="eventTimesChanged($event)"
     >
-    </mwl-calendar-day-view>
+    </mwl-calendar-day-view> -->
   </div>
   
   <!-- Everything you see below is just for the demo, you don't need to include it in your app -->
