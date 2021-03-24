@@ -7,6 +7,8 @@ Angular: npm install -g @angular/cli
 Install the beach house angular app locally: (In BeachHouseUI folder)
 
 npm i angularx-social-login
+ng add angular-calendar
+npm install --save flatpickr angularx-flatpickr
 
 To run type in cmd prompt:
 
