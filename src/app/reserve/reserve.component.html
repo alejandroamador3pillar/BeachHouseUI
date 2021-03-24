@@ -1,0 +1,16 @@
+<h2>Reserve Now</h2>
+
+<div><i style="color:#D24DFF"></i>&nbsp;Available</div>
+<div><i style="color:#7B7B7B"></i>&nbsp;Reserved</div>
+<div style="margin-bottom:20px; margin-top:10px">
+    <i class="fa fa-check"></i>&nbsp;Select the start and end date of your reservation<br>
+    <i class="fa fa-check"></i>&nbsp;You can only reserve within 6 months in advance<br>
+    <i class="fa fa-check"></i>&nbsp;You can only reserve 6 nights in a row<br>
+</div>
+<br /><br />
+<div>
+    <app-calendar></app-calendar>
+</div>
+<br /><br /><br />
+<h2>Reservations</h2>
+{{reservations | json}}
