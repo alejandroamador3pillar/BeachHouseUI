@@ -90,6 +90,12 @@
     >
     </mwl-calendar-day-view> -->
   </div>
+  <br/>
+  <div class="btn btn-primary">Clear Selection </div>
+  <div class="btn btn-primary" (click)="setDates()">Popup!</div>
+  <br/>
+  <p>Available Dates</p>
+  {{availableDates | json}}
   
   <!-- Everything you see below is just for the demo, you don't need to include it in your app -->
   <!-- 

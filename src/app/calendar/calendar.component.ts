@@ -20,8 +20,8 @@ const colors: any = {
     secondary: '#FDF1BA',
   },
   reserved: {
-    primary: '#D24DFF',
-    secondary: '#D24DFF',
+    primary: '#363636',
+    secondary: '#363636',
   },
   enable: {
     primary: '#D24DFF',
@@ -43,9 +43,10 @@ const colors: any = {
 export class CalendarComponent {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
 
-  reservations: ReserveComponent;
-
+  reservations: ReserveComponent[];
+  availableDates: ReserveComponent[]= [];
   view: CalendarView = CalendarView.Month;
+  today: number = Date.now();
 
   CalendarView = CalendarView;
 
@@ -89,7 +90,7 @@ export class CalendarComponent {
         afterEnd: true,
       },
       draggable: true,
-    },  */
+    },  
     {
       start: startOfDay(new Date()),
       end: addMonths(new Date(), 6),
@@ -97,7 +98,7 @@ export class CalendarComponent {
       color: colors.enable,
       actions: this.actions,
     },
-    /* {
+     {
       start: subDays(endOfMonth(new Date()), 3),
       end: addDays(endOfMonth(new Date()), 3),
       title: 'A long event that spans 2 months',
@@ -159,20 +160,10 @@ export class CalendarComponent {
     this.modal.open(this.modalContent, { size: 'lg' });
   }
 
-  addEvent(): void {
+  addEvent(event: CalendarEvent): void {
     this.events = [
-      ...this.events,
-      {
-        title: 'New event',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        color: colors.red,
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true,
-        },
-      },
+      ...this.events,      
+      event,
     ];
   }
 
@@ -193,7 +184,78 @@ export class CalendarComponent {
     .subscribe(reservations => this.reservations = reservations);
   }
 
-  /* ngOnInit(): void {
-  } */
+  getAvailableDates(month: number, year: number): void{
+    this.calendarService.getAvailableDates(month, year)
+      .subscribe(availableDates => this.availableDates = availableDates);
+  }
+   
+  ngOnInit(): void {
+      this.getAvailableDates(new Date().getMonth()+1, new Date().getFullYear());
+     //this.setDates(); 
+  }  
+
+   setDates(): void{
+      console.log(new Date().getMonth()+1);
+      console.log(new Date().getFullYear());
+
+      var month = new Date().getMonth()+1;
+      var year = new Date().getFullYear();
+      var currentMonth = month;
+
+      for(let i = month; i < (month + 6); i++){
+        
+        var currentYear = year;
+          if(i == 13){
+            currentMonth = 1;
+              year + 1;
+          }
+          
+        this.getAvailableDates(currentMonth, year);
+        
+        //console.log('Disponible '+ this.availableDates);
+        let newEvent: CalendarEvent
+        //var availableDate : any
+        //console.log(new Date().toLocaleString());
+
+        for(let j = 0; j < this.availableDates.length; j++){
+          //console.log(this.availableDates[i]);
+          console.log(new Date(this.availableDates[j].date).toLocaleString('es-ES'));
+          console.log(new Date().toLocaleString('es-ES'));
+          
+        // if ( new Date(this.availableDates[j].date).toLocaleString() >=  new Date().toLocaleString()){          
+                    
+            if (this.availableDates[j].available == true)
+            {
+              newEvent =
+                          {
+                            title: 'Day Enable to Reserve',
+                            start: startOfDay(new Date(this.availableDates[j].date)),
+                            end: endOfDay(new Date(this.availableDates[j].date)),
+                            color: colors.enable,
+                            draggable: true,
+                            resizable: {
+                              beforeStart: true,
+                              afterEnd: true,
+                            }};
+            }
+            else{
+              newEvent =
+                        {
+                          title: 'Day Reserved',
+                          start: startOfDay(new Date(this.availableDates[j].date)),
+                          end: endOfDay(new Date(this.availableDates[j].date)),
+                          color: colors.reserved,
+                          draggable: true,
+                          resizable: {
+                            beforeStart: true,
+                            afterEnd: true,
+                          }};
+            } 
+          this.addEvent(newEvent);
+        //}
+      } 
+      currentMonth++;
+    }
+  } 
 
 }
