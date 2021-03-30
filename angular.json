@@ -165,5 +165,8 @@
       }
     }
   },
-  "defaultProject": "angularx-social-login-ws"
+  "defaultProject": "angularx-social-login-ws",
+  "cli": {
+    "analytics": "b040f864-0c49-4751-bfc8-65c3eb2ed796"
+  }
 }
