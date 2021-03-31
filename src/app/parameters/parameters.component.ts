@@ -30,13 +30,4 @@ export class ParametersComponent implements OnInit {
       .subscribe(users => this.users = users);
   }
 
-   addUser(user_id: string): void {
-    user_id = user_id.trim();
-    if (!user_id) { return; }
-    this.parametersService.addUser(user_id)
-      .subscribe(user => {
-        this.users.push(user);
-      });
-  } 
-
 }

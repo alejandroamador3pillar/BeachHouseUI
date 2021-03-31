@@ -12,7 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { DemoComponent } from './demo/demo.component';
+import { LoginComponent } from './login/login.component';
 
 import { SocialLoginModule, SocialAuthServiceConfig } from 'lib';
 import {
@@ -27,8 +27,8 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { HeaderComponent } from './header/header.component';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, DemoComponent, ParametersComponent, FooterComponent, ReserveComponent, CalendarComponent, HeaderComponent],
-  imports: [BrowserModule, FormsModule, HttpClientModule, SocialLoginModule, BrowserAnimationsModule, 
+  declarations: [AppComponent, NavbarComponent, LoginComponent, ParametersComponent, FooterComponent, ReserveComponent, CalendarComponent, HeaderComponent],
+  imports: [BrowserModule, FormsModule, HttpClientModule, SocialLoginModule, BrowserAnimationsModule,
     CommonModule, NgbModalModule, FlatpickrModule.forRoot(), 
     CalendarModule.forRoot({
       provide: DateAdapter,
