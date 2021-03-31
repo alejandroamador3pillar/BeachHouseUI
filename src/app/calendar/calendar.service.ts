@@ -38,6 +38,24 @@ export class CalendarService {
     ); 
   }
 
+  getCancelReservation(user_id: number, reservation_id: number):  Observable<Boolean[]>{
+    var body: string = JSON.stringify({"user_id": user_id, "reservation_id": reservation_id} );
+
+    return this.http.put<Boolean[]>(this.APIUrl+'/reservation/cancel', body, this.httpOptions)
+    .pipe(
+      tap((response: any) => {
+        if(response.status == "200"){
+            true;                 
+        }else{
+            console.log("Error logging in: " +response.status);
+            false;
+        }
+    })
+      ,
+      catchError(this.handleError<Boolean[]>('getCancelReservation', []))
+    ); 
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
   

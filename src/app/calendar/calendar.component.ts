@@ -1,10 +1,11 @@
-import { Component, OnInit ,  ChangeDetectionStrategy,  ViewChild,  TemplateRef,} from '@angular/core';
+import { Component, OnInit ,  ChangeDetectionStrategy,  ViewChild,  TemplateRef, Inject} from '@angular/core';
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours, addMonths} from 'date-fns';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView,} from 'angular-calendar';
 import { CalendarService} from './calendar.service';
 import { ReserveComponent} from '../reserve/reserve.component';
+//import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
 
 const colors: any = {
   red: {
@@ -191,7 +192,7 @@ export class CalendarComponent {
    
   ngOnInit(): void {
       this.getAvailableDates(new Date().getMonth()+1, new Date().getFullYear());
-     //this.setDates(); 
+     this.setDates(); 
   }  
 
    setDates(): void{
@@ -211,12 +212,12 @@ export class CalendarComponent {
           }
           
         this.getAvailableDates(currentMonth, year);
-        
+        //console.log(dates);
         //console.log('Disponible '+ this.availableDates);
         let newEvent: CalendarEvent
         //var availableDate : any
         //console.log(new Date().toLocaleString());
-
+/*
         for(let j = 0; j < this.availableDates.length; j++){
           //console.log(this.availableDates[i]);
           console.log(new Date(this.availableDates[j].date).toLocaleString('es-ES'));
@@ -253,9 +254,17 @@ export class CalendarComponent {
             } 
           this.addEvent(newEvent);
         //}
-      } 
+      } */
       currentMonth++;
     }
   } 
+
+  reservePopUp(): void {
+    //this.dialog.open(CalendarComponent, "Reservation Email Send");
+  }
+
+  cancelPopUp(): void {
+    //this.dialog.open(CalendarComponent, "Cancelation Email Send");
+  }
 
 }
