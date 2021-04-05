@@ -7,6 +7,7 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -23,11 +24,20 @@ import { FooterComponent } from './footer/footer.component';
 import { ReserveComponent } from './reserve/reserve.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { HeaderComponent } from './header/header.component';
+import { AccountComponent } from './account/account.component';
+import { ReservationsComponent } from './reservations/reservations.component';
+
+
+const routes: Routes = [
+  { path: 'account', component: AccountComponent },
+  { path: 'myreservations', component: ReservationsComponent },
+  { path: 'reserve', component: ReserveComponent }
+];
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, DemoComponent, ParametersComponent, FooterComponent, ReserveComponent, CalendarComponent, HeaderComponent],
-  imports: [BrowserModule, FormsModule, HttpClientModule, SocialLoginModule, BrowserAnimationsModule,
-    CommonModule, NgbModalModule, FlatpickrModule.forRoot(), 
+  declarations: [AppComponent, NavbarComponent, DemoComponent, ParametersComponent, FooterComponent, ReserveComponent, CalendarComponent, HeaderComponent, AccountComponent, ReservationsComponent],
+  imports: [BrowserModule, FormsModule, HttpClientModule, SocialLoginModule, BrowserAnimationsModule, RouterModule.forRoot(routes),
+    CommonModule, RouterModule, NgbModalModule, FlatpickrModule.forRoot(), 
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
