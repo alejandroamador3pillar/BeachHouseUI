@@ -11,7 +11,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { DemoComponent } from './demo/demo.component';
+import { LoginComponent } from './login/login.component';
 
 import { SocialLoginModule, SocialAuthServiceConfig } from 'lib';
 import {
@@ -35,9 +35,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, DemoComponent, ParametersComponent, FooterComponent, ReserveComponent, CalendarComponent, HeaderComponent, AccountComponent, ReservationsComponent],
-  imports: [BrowserModule, FormsModule, HttpClientModule, SocialLoginModule, BrowserAnimationsModule, RouterModule.forRoot(routes),
-    CommonModule, RouterModule, NgbModalModule, FlatpickrModule.forRoot(), 
+  declarations: [AppComponent, NavbarComponent, LoginComponent, ParametersComponent, FooterComponent, ReserveComponent, CalendarComponent, HeaderComponent],
+  imports: [BrowserModule, FormsModule, HttpClientModule, SocialLoginModule, BrowserAnimationsModule,
+    CommonModule, NgbModalModule, FlatpickrModule.forRoot(), 
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
