@@ -10,6 +10,7 @@ import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //import {MatButtonModule, MatCheckboxModule} from '@angular/material';
 
+
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';

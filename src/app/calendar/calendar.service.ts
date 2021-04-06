@@ -5,6 +5,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { CalendarComponent} from '../calendar/calendar.component';
 import { ReserveComponent} from '../reserve/reserve.component';
+import {IReservationModel} from '../domain/ReservationModel';
+
 
 @Injectable({
   providedIn: 'root'
@@ -28,13 +30,13 @@ export class CalendarService {
     ); 
   }
 
-  getAvailableDates(month: number, year: number):  Observable<ReserveComponent[]>{
+  getAvailableDates(month: number, year: number):  Observable<IReservationModel[]>{
     var body: string = JSON.stringify({"Month": month, "Year": year} );
 
-    return this.http.post<ReserveComponent[]>(this.APIUrl+'/reservation/available_dates', body, this.httpOptions)
+    return this.http.post<IReservationModel[]>(this.APIUrl+'/reservation/available_dates', body, this.httpOptions)
     .pipe(
       tap(_ => this.log('fetched Available Dates')),
-      catchError(this.handleError<ReserveComponent[]>('getAvailableDates', []))
+      catchError(this.handleError<IReservationModel[]>('getAvailableDates', []))
     ); 
   }
 

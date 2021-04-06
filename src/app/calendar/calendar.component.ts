@@ -1,11 +1,15 @@
 import { Component, OnInit ,  ChangeDetectionStrategy,  ViewChild,  TemplateRef, Inject} from '@angular/core';
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours, addMonths} from 'date-fns';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, forkJoin } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView,} from 'angular-calendar';
 import { CalendarService} from './calendar.service';
 import { ReserveComponent} from '../reserve/reserve.component';
-//import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
+//import {  } from 'rxjs/observable/forkJoin';
+import {IReservationModel} from '../domain/ReservationModel';
+
+
 
 const colors: any = {
   red: {
@@ -188,75 +192,95 @@ export class CalendarComponent {
   getAvailableDates(month: number, year: number): void{
     this.calendarService.getAvailableDates(month, year)
       .subscribe(availableDates => this.availableDates = availableDates);
+
+
+    /* this.calendarService.getAvailableDates(month, year).then((dias: ReserveComponent[]) => {
+      console.log(`Fetched ${dias.length} dates.`)
+    }); */
+    //this.availableDates.push();
+      //.subscribe(availableDates => this.availableDates = availableDates);
   }
    
   ngOnInit(): void {
-      this.getAvailableDates(new Date().getMonth()+1, new Date().getFullYear());
+      //this.getAvailableDates(new Date().getMonth()+1, new Date().getFullYear());
      this.setDates(); 
   }  
 
    setDates(): void{
-      console.log(new Date().getMonth()+1);
-      console.log(new Date().getFullYear());
 
       var month = new Date().getMonth()+1;
       var year = new Date().getFullYear();
       var currentMonth = month;
 
-      for(let i = month; i < (month + 6); i++){
-        
-        var currentYear = year;
+      const dates = {
+        month0: null,
+        month1: null,
+        month2: null,
+        month3: null,
+        month4: null,
+        month5: null
+      }; 
+      
+      let newEvent: CalendarEvent;
+      
+
+      for(let i = month, j = 0; i < (month + 6); i++, j++){
+
+
+         var currentYear = year;
           if(i == 13){
             currentMonth = 1;
               year + 1;
-          }
+          } 
           
-        this.getAvailableDates(currentMonth, year);
-        //console.log(dates);
-        //console.log('Disponible '+ this.availableDates);
-        let newEvent: CalendarEvent
-        //var availableDate : any
-        //console.log(new Date().toLocaleString());
-/*
-        for(let j = 0; j < this.availableDates.length; j++){
-          //console.log(this.availableDates[i]);
-          console.log(new Date(this.availableDates[j].date).toLocaleString('es-ES'));
-          console.log(new Date().toLocaleString('es-ES'));
-          
-        // if ( new Date(this.availableDates[j].date).toLocaleString() >=  new Date().toLocaleString()){          
-                    
-            if (this.availableDates[j].available == true)
-            {
-              newEvent =
-                          {
-                            title: 'Day Enable to Reserve',
-                            start: startOfDay(new Date(this.availableDates[j].date)),
-                            end: endOfDay(new Date(this.availableDates[j].date)),
-                            color: colors.enable,
-                            draggable: true,
-                            resizable: {
-                              beforeStart: true,
-                              afterEnd: true,
-                            }};
+          dates[`month${j}`] = this.calendarService.getAvailableDates(currentMonth, year);
+          currentMonth++;
+        }
+
+        forkJoin(dates).subscribe(arrayOfData => {
+          const months = Object.keys(arrayOfData);
+
+          for(let j = 0; j < months.length; j++){
+            const monthsData = arrayOfData[months[j]] as IReservationModel[];
+
+            for(let k = 0; k < monthsData.length; k++){
+              // if ( new Date(this.availableDates[j].date).toLocaleString() >=  new Date().toLocaleString()){          
+                      
+                if (monthsData[k].available)
+                {
+                  newEvent =
+                              {
+                                title: 'Day Enable to Reserve',
+                                start: startOfDay(new Date(monthsData[k].date)),
+                                end: endOfDay(new Date(monthsData[k].date)),
+                                color: colors.enable,
+                                draggable: true,
+                                resizable: {
+                                  beforeStart: true,
+                                  afterEnd: true,
+                                }};
+                }
+                else{
+                  newEvent =
+                            {
+                              title: 'Day Reserved',
+                              start: startOfDay(new Date(monthsData[k].date)),
+                              end: endOfDay(new Date(monthsData[k].date)),
+                              color: colors.reserved,
+                              draggable: true,
+                              resizable: {
+                                beforeStart: true,
+                                afterEnd: true,
+                              }};
+                } 
+              this.addEvent(newEvent);
+            //}
             }
-            else{
-              newEvent =
-                        {
-                          title: 'Day Reserved',
-                          start: startOfDay(new Date(this.availableDates[j].date)),
-                          end: endOfDay(new Date(this.availableDates[j].date)),
-                          color: colors.reserved,
-                          draggable: true,
-                          resizable: {
-                            beforeStart: true,
-                            afterEnd: true,
-                          }};
-            } 
-          this.addEvent(newEvent);
-        //}
-      } */
-      currentMonth++;
-    }
+
+        } 
+        
+        });
+
   } 
 
   reservePopUp(): void {
