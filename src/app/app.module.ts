@@ -7,6 +7,10 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+//import {MatButtonModule, MatCheckboxModule} from '@angular/material';
+import { MaterialModule } from './ui/material.module';
+
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -19,7 +23,7 @@ import {
   
 } from 'lib';
 import { ParametersComponent } from './parameters/parameters.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { FooterComponent } from './footer/footer.component';
 import { ReserveComponent } from './reserve/reserve.component';
 import { CalendarComponent } from './calendar/calendar.component';
@@ -36,7 +40,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, LoginComponent, ParametersComponent, FooterComponent, ReserveComponent, CalendarComponent, HeaderComponent],
-  imports: [BrowserModule, FormsModule, HttpClientModule, SocialLoginModule, BrowserAnimationsModule,
+  imports: [BrowserModule, FormsModule, HttpClientModule, SocialLoginModule, BrowserAnimationsModule, MaterialModule,
     CommonModule, NgbModalModule, FlatpickrModule.forRoot(), 
     CalendarModule.forRoot({
       provide: DateAdapter,
