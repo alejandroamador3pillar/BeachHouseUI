@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
     this.addUser();
   }
 
-  signInWithFB(): void {
+  /* signInWithFB(): void {
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 
@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
 
   signInWithMicrosoft(): void {
     this.authService.signIn(MicrosoftLoginProvider.PROVIDER_ID);
-  }
+  } */
 
   signOut(): void {
     this.authService.signOut();
