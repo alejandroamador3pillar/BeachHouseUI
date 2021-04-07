@@ -49,7 +49,25 @@ export class CalendarService {
         if(response.status == "200"){
             true;                 
         }else{
-            console.log("Error logging in: " +response.status);
+            console.log("Error cancelling reservation: " + response.status);
+            false;
+        }
+    })
+      ,
+      catchError(this.handleError<Boolean[]>('getCancelReservation', []))
+    ); 
+  }
+
+  setReservation(): Observable<IReservationModel[]> {
+    var body: string = JSON.stringify({"StartDate": new Date().toLocaleDateString(), "LocationId": 1, "Nights": 1} );
+
+    return this.http.post<IReservationModel[]>(this.APIUrl+'/reservation', body, {headers: new HttpHeaders({ 'user_id': '101790084427153843849' }),})
+    .pipe(
+      tap((response: any) => {
+        if(response.status == "200"){
+            true;                 
+        }else{
+            console.log("Error cancelling reservation: " + response.status);
             false;
         }
     })

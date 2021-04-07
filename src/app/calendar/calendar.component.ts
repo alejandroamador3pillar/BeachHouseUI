@@ -5,25 +5,12 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView,} from 'angular-calendar';
 import { CalendarService} from './calendar.service';
 import { ReserveComponent} from '../reserve/reserve.component';
-import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
-//import {  } from 'rxjs/observable/forkJoin';
+import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {IReservationModel} from '../domain/ReservationModel';
 
 
 
-const colors: any = {
-  red: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3',
-  },
-  blue: {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF',
-  },
-  yellow: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA',
-  },
+const colors: any = {  
   reserved: {
     primary: '#363636',
     secondary: '#363636',
@@ -62,7 +49,7 @@ export class CalendarComponent {
     event: CalendarEvent;
   };
 
-  actions: CalendarEventAction[] = [
+  /* actions: CalendarEventAction[] = [
     {
       label: '<i class="fas fa-fw fa-pencil-alt"></i>',
       a11yLabel: 'Edit',
@@ -77,56 +64,16 @@ export class CalendarComponent {
         this.events = this.events.filter((iEvent) => iEvent !== event);
         this.handleEvent('Deleted', event);
       },
-    },
-  ];
+    }, 
+  ]; */
 
   refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[] = [
-      /* {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: 'A 3 day event',
-      color: colors.gray,
-      actions: this.actions,
-      allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },  
-    {
-      start: startOfDay(new Date()),
-      end: addMonths(new Date(), 6),
-      title: 'Day Enable to Reserve',
-      color: colors.enable,
-      actions: this.actions,
-    },
-     {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: colors.indigo,
-      allDay: true,
-    }, */
-    /* {
-      start: addHours(startOfDay(new Date()), 2),
-      end: addHours(new Date(), 2),
-      title: 'A draggable and resizable event',
-      color: colors.yellow,
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },  */
-  ];
+  events: CalendarEvent[] = [];
 
   activeDayIsOpen: boolean = true;
 
-  constructor(private modal: NgbModal, private calendarService: CalendarService) {}
+  constructor(private modal: NgbModal, private calendarService: CalendarService, public dialog: MatDialog) {}
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -189,10 +136,10 @@ export class CalendarComponent {
     .subscribe(reservations => this.reservations = reservations);
   }
 
-  getAvailableDates(month: number, year: number): void{
-    this.calendarService.getAvailableDates(month, year)
+  getAvailableDates(month: number, year: number): void {
+   /*  this.calendarService.getAvailableDates(month, year)
       .subscribe(availableDates => this.availableDates = availableDates);
-
+ */
 
     /* this.calendarService.getAvailableDates(month, year).then((dias: ReserveComponent[]) => {
       console.log(`Fetched ${dias.length} dates.`)
@@ -201,8 +148,7 @@ export class CalendarComponent {
       //.subscribe(availableDates => this.availableDates = availableDates);
   }
    
-  ngOnInit(): void {
-      //this.getAvailableDates(new Date().getMonth()+1, new Date().getFullYear());
+  ngOnInit(): void {     
      this.setDates(); 
   }  
 
@@ -223,9 +169,7 @@ export class CalendarComponent {
       
       let newEvent: CalendarEvent;
       
-
       for(let i = month, j = 0; i < (month + 6); i++, j++){
-
 
          var currentYear = year;
           if(i == 13){
@@ -235,60 +179,91 @@ export class CalendarComponent {
           
           dates[`month${j}`] = this.calendarService.getAvailableDates(currentMonth, year);
           currentMonth++;
-        }
+      }
 
-        forkJoin(dates).subscribe(arrayOfData => {
-          const months = Object.keys(arrayOfData);
+      forkJoin(dates).subscribe(arrayOfData => {
+        const months = Object.keys(arrayOfData);
 
-          for(let j = 0; j < months.length; j++){
-            const monthsData = arrayOfData[months[j]] as IReservationModel[];
+        for(let j = 0; j < months.length; j++){
+          const monthsData = arrayOfData[months[j]] as IReservationModel[];
 
-            for(let k = 0; k < monthsData.length; k++){
-              // if ( new Date(this.availableDates[j].date).toLocaleString() >=  new Date().toLocaleString()){          
-                      
-                if (monthsData[k].available)
-                {
-                  newEvent =
-                              {
-                                title: 'Day Enable to Reserve',
-                                start: startOfDay(new Date(monthsData[k].date)),
-                                end: endOfDay(new Date(monthsData[k].date)),
-                                color: colors.enable,
-                                draggable: true,
-                                resizable: {
-                                  beforeStart: true,
-                                  afterEnd: true,
-                                }};
-                }
-                else{
-                  newEvent =
+          for(let k = 0; k < monthsData.length; k++){
+            //if ( new Date(monthsData[k].date).toLocaleString() >=  new Date().toLocaleString()){
+                    
+              if (monthsData[k].available)
+              {
+                newEvent =
                             {
-                              title: 'Day Reserved',
+                              title: 'Day Enable to Reserve',
                               start: startOfDay(new Date(monthsData[k].date)),
                               end: endOfDay(new Date(monthsData[k].date)),
-                              color: colors.reserved,
-                              draggable: true,
+                              color: colors.enable,
+                              draggable: false,
                               resizable: {
                                 beforeStart: true,
                                 afterEnd: true,
                               }};
-                } 
-              this.addEvent(newEvent);
-            //}
-            }
-
-        } 
-        
-        });
-
+              }
+              else{
+                newEvent =
+                          {
+                            title: 'Day Reserved',
+                            start: startOfDay(new Date(monthsData[k].date)),
+                            end: endOfDay(new Date(monthsData[k].date)),
+                            color: colors.reserved,
+                            draggable: false,
+                            resizable: {
+                              beforeStart: true,
+                              afterEnd: true,
+                            }};
+              } 
+            this.addEvent(newEvent);
+          //}
+          }
+        }      
+      });
   } 
 
   reservePopUp(): void {
-    //this.dialog.open(CalendarComponent, "Reservation Email Send");
+
+    
+    this.dialog.open(DialogData, {
+      data: {
+        title: 'Reservation'
+      }
+    });
+    this.calendarService.setReservation();
+    /*this.events = [];
+    this.setDates();*/
   }
 
   cancelPopUp(): void {
-    //this.dialog.open(CalendarComponent, "Cancelation Email Send");
-  }
+     emailSend: Boolean;
+    this.calendarService.getCancelReservation( 101790084427153843849, 12).subscribe(x => emailSend = x);
 
+    if (emailSend){
+      this.dialog.open(DialogData, {
+      data: {
+        title: 'Cancelation'
+      }
+    });
+    }
+    
+    /*this.events = [];
+    this.setDates();*/
+  }
+  
 }
+
+
+@Component({
+    selector: 'dialog-data',
+    templateUrl: 'dialog-data.html',
+  })
+  export class DialogData {
+    constructor(public dialogRef: MatDialogRef<DialogData>, @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+    
+    close(): void {
+      this.dialogRef.close();
+    }
+  }
