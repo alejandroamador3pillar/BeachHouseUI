@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //import {MatButtonModule, MatCheckboxModule} from '@angular/material';
 import { MaterialModule } from './ui/material.module';
 
+import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -27,6 +28,15 @@ import { FooterComponent } from './footer/footer.component';
 import { ReserveComponent } from './reserve/reserve.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { HeaderComponent } from './header/header.component';
+import { AccountComponent } from './account/account.component';
+import { ReservationsComponent } from './reservations/reservations.component';
+
+
+const routes: Routes = [
+  { path: 'account', component: AccountComponent },
+  { path: 'myreservations', component: ReservationsComponent },
+  { path: 'reserve', component: ReserveComponent }
+];
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, LoginComponent, ParametersComponent, FooterComponent, ReserveComponent, CalendarComponent, HeaderComponent],

@@ -12,6 +12,8 @@ ng add angular-calendar
 
 npm install --save flatpickr angularx-flatpickr
 
+npm install --save @angular/material @angular/cdk @angular/animations
+
 To run type in cmd prompt:
 
 ng build lib
