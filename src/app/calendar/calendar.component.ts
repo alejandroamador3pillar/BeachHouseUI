@@ -96,6 +96,7 @@ export class CalendarComponent {
       title: 'Day Enable to Reserve',
       color: colors.enable,
       actions: this.actions,
+      cssClass: "calendar.component.css"
     },
     /* {
       start: subDays(endOfMonth(new Date()), 3),

@@ -17,3 +17,8 @@ h3 {
     color:#FFFF;
     padding:10px;
     }
+
+    .cal-month-view .cal-day-cell.cal-in-month.cal-has-events {
+      color: rgb(210, 77, 255) !important;
+      visibility: visible;
+    }
