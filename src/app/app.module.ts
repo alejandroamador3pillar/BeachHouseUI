@@ -8,9 +8,8 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-//import {MatButtonModule, MatCheckboxModule} from '@angular/material';
 import { MaterialModule } from './ui/material.module';
-
+//import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -26,7 +25,7 @@ import { ParametersComponent } from './parameters/parameters.component';
 
 import { FooterComponent } from './footer/footer.component';
 import { ReserveComponent } from './reserve/reserve.component';
-import { CalendarComponent } from './calendar/calendar.component';
+import { CalendarComponent, DialogData } from './calendar/calendar.component';
 import { HeaderComponent } from './header/header.component';
 import { AccountComponent } from './account/account.component';
 import { ReservationsComponent } from './reservations/reservations.component';
@@ -39,14 +38,18 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, LoginComponent, ParametersComponent, FooterComponent, ReserveComponent, CalendarComponent, HeaderComponent],
+  declarations: [AppComponent, NavbarComponent, LoginComponent, ParametersComponent, FooterComponent, ReserveComponent,
+     CalendarComponent, HeaderComponent, DialogData],
   imports: [BrowserModule, FormsModule, HttpClientModule, SocialLoginModule, BrowserAnimationsModule, MaterialModule,
     CommonModule, NgbModalModule, FlatpickrModule.forRoot(), 
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
-    }), NgbModule,],
+    }), NgbModule,RouterModule, ],
   exports: [CalendarComponent],
+  entryComponents: [
+    DialogData
+  ],
   providers: [
     {
       provide: 'SocialAuthServiceConfig',
@@ -64,5 +67,6 @@ const routes: Routes = [
     }
   ],
   bootstrap: [AppComponent],
+  //schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 })
 export class AppModule { }

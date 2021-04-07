@@ -150,6 +150,7 @@ export class CalendarComponent {
    
   ngOnInit(): void {     
      this.setDates(); 
+     //this.dayClicked()
   }  
 
    setDates(): void{
@@ -262,7 +263,7 @@ export class CalendarComponent {
   })
   export class DialogData {
     constructor(public dialogRef: MatDialogRef<DialogData>, @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
-    
+    title: string = "";
     close(): void {
       this.dialogRef.close();
     }

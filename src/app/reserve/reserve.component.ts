@@ -13,7 +13,7 @@ export class ReserveComponent implements OnInit {
   constructor(private reservationsService: ReserveService) { }
 
   ngOnInit(): void {
-    this.getReservations();
+    //this.getReservations();
   }
 
   getReservations(): void {
