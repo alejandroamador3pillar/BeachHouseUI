@@ -9,6 +9,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //import {MatButtonModule, MatCheckboxModule} from '@angular/material';
+import { MaterialModule } from './ui/material.module';
 
 
 import { AppComponent } from './app.component';
@@ -29,7 +30,7 @@ import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, LoginComponent, ParametersComponent, FooterComponent, ReserveComponent, CalendarComponent, HeaderComponent],
-  imports: [BrowserModule, FormsModule, HttpClientModule, SocialLoginModule, BrowserAnimationsModule,
+  imports: [BrowserModule, FormsModule, HttpClientModule, SocialLoginModule, BrowserAnimationsModule, MaterialModule,
     CommonModule, NgbModalModule, FlatpickrModule.forRoot(), 
     CalendarModule.forRoot({
       provide: DateAdapter,

@@ -238,16 +238,16 @@ export class CalendarComponent {
   }
 
   cancelPopUp(): void {
-     emailSend: Boolean;
-    this.calendarService.getCancelReservation( 101790084427153843849, 12).subscribe(x => emailSend = x);
+     /* emailSend: Boolean;
+    this.calendarService.getCancelReservation( 101790084427153843849, 12).subscribe(x => emailSend = x); */
 
-    if (emailSend){
+    //if (emailSend){
       this.dialog.open(DialogData, {
       data: {
         title: 'Cancelation'
       }
     });
-    }
+   // }
     
     /*this.events = [];
     this.setDates();*/
