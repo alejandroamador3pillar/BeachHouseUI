@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  name: 'dev',
+  name: 'qa',
   production: false,
   uiBasePath: 'https://localhost:4200',
   apiPath: 'https://localhost:44377',

@@ -1,7 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import {ParametersService} from './parameters.service';
-
+import { IParameterModel } from '../domain/ParameterModel';
 import { SocialUser } from 'lib';
+import { of } from 'rxjs';
+
+const USER_SCHEMA = {
+  "id": "text",
+  "description": "text",
+  "value": "text",
+  "startDate": "date",
+  "endDate": "date",
+  "updated_by": "text" 
+}
 
 @Component({
   selector: 'app-parameters',
@@ -9,9 +19,13 @@ import { SocialUser } from 'lib';
   styleUrls: ['./parameters.component.css']
 })
 export class ParametersComponent implements OnInit {
-  parameters: ParametersComponent[] = [];
+  parameters: IParameterModel[] = [];
+  parameter: IParameterModel;
   users: ParametersComponent[];
   user: SocialUser;
+  displayedColumns: string[] = ['id','description', 'value', 'startDate', 'endDate', '$$edit'];
+ 
+  dataSchema = USER_SCHEMA;
 
   constructor(private parametersService: ParametersService) { }
 
@@ -29,5 +43,25 @@ export class ParametersComponent implements OnInit {
     this.parametersService.getUsers()
       .subscribe(users => this.users = users);
   }
+
+  setParameter(parameter: IParameterModel): void{
+
+    parameter.updated_by = "101790084427153843849";//pending to add current user
+    //console.log(parameter);
+
+    this.parametersService.setParameter(parameter)
+    .subscribe((data) => {
+        console.log(data);
+        return true;
+    },
+    (error) => {      
+      console.log(error);
+      this.parameter = null;
+      //return of();
+      return false; 
+    });
+  }
+
+
 
 }
