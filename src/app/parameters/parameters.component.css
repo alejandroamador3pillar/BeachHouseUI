@@ -1,0 +1,45 @@
+table {
+    width: 90%;
+    margin: auto;
+}
+.btn-edit {
+    text-align: right;
+}
+/* h2 {
+    text-align: center;
+    padding-top: 20px;
+} */
+/* .btn-primary {
+    text-align: right;
+} */
+
+.parameters{
+    width: 90%;
+    margin: auto;
+}
+
+.btn-edit:hover{
+    background-color: white ;
+    border-color: white;
+    color: black;
+    opacity: 0.5;
+    font-weight: bold;
+ }
+
+.header{
+    font: 300 22px/22px 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #383838;
+    text-transform: uppercase;
+    padding-top: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #cfcfcf;
+    margin: 0 0 15px 0;
+}
+
+.mat-header-cell {
+    color: white;
+    background: linear-gradient(180deg, #f6a828 50%, #e78f08 50%);
+    text-transform: capitalize;
+    font: 150 16px/16px 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: bold;
+}

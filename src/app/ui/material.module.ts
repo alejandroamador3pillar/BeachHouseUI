@@ -23,6 +23,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
+import { SnackBarComponent } from './snack-bar/snack-bar.component';
 
 @NgModule({
   imports: [
@@ -76,6 +77,7 @@ import { MatTreeModule } from '@angular/material/tree';
     MatInputModule,
     MatOptionModule,
     MatNativeDateModule
-  ]
+  ],
+  declarations: [SnackBarComponent]
 })
 export class MaterialModule {}

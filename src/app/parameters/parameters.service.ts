@@ -1,20 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
+import { environment } from '../../environments/environment';
 import { ParametersComponent } from './parameters.component';
 import { MessageService } from '../message.service';
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpErrorResponse,
-} from '@angular/common/http';
+import {  HttpClient, HttpHeaders, HttpErrorResponse,} from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { SocialUser } from 'lib';
+import { IParameterModel } from '../domain/ParameterModel';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ParametersService {
-  APIUrl = 'https://localhost:44377'; //API URL pending to make global
+   public APIUrl = environment.apiPath; //API URL
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -25,13 +23,27 @@ export class ParametersService {
     private messageService: MessageService
   ) {}
 
-  getParameters(): Observable<ParametersComponent[]> {
+  getParameters(): Observable<IParameterModel[]> {
     //const parameters = of(parameters)
-    return this.http.get<ParametersComponent[]>(this.APIUrl + '/params').pipe(
+    return this.http.get<IParameterModel[]>(this.APIUrl + '/params').pipe(
       tap((_) => this.log('fetched parameters')),
-      catchError(this.handleError<ParametersComponent[]>('getParameters', []))
+      catchError(this.handleError<IParameterModel[]>('getParameters', []))
     );
   }
+  
+  setParameter(parameter: IParameterModel): Observable<any>{
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      user_id: parameter.updated_by,
+    });
+    return this.http.put<IParameterModel>(this.APIUrl + '/params', parameter, {headers} ).pipe(
+      tap((_) => this.log('seted parameter')),
+      catchError(this.handleError<IParameterModel[]>('setParameter', []))
+    );
+  }
+
+
+  //Users pending to move
 
   getUsers(): Observable<ParametersComponent[]> {
     return this.http.get<ParametersComponent[]>(this.APIUrl + '/users').pipe(

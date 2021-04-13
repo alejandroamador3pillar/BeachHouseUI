@@ -1,0 +1,19 @@
+.header{
+    font: 300 22px/22px 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #383838;
+    text-transform: uppercase;
+    padding-top: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #cfcfcf;
+    margin: 0 0 15px 0;
+}
+
+.states{
+    text-transform: uppercase;
+
+}
+
+.reservations{
+    width: 90%;
+    margin: auto;
+}

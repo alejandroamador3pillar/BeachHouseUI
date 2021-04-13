@@ -22,3 +22,41 @@ h3 {
       color: rgb(210, 77, 255) !important;
       visibility: visible;
     }
+
+    .text-center {      
+      background: linear-gradient(180deg, #f6a828 50%, #e78f08 50%);     
+      border-radius: 1%;
+      align-items: center;
+    }
+
+    .header {
+      color: white;      
+      text-align: center; 
+    }
+
+    .btn-month-pre{
+      background-color: transparent;
+      border-color: white;
+      color: white;
+      float: left;
+   }
+
+    .btn-month-next{
+       background-color: transparent;
+       border-color: white;
+       color: white;
+       float: right;
+    }
+
+    .btn-month-pre:hover,.btn-month-next:hover{
+      background-color: white ;
+      border-color: white;
+      color: black;
+      opacity: 0.5;
+      font-weight: bold;
+   }
+
+    /*.ng-star-inserted{
+      display: none;
+    }*/
+
