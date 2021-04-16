@@ -1,7 +1,11 @@
-
-h3 {
-    margin: 0 0 10px;
+  .calendar{
+    width: 90%;
+    margin: auto;
   }
+
+  h3 {
+      margin: 0 0 10px;
+    }
   
   pre {
     background-color: #f5f5f5;
@@ -18,10 +22,10 @@ h3 {
     padding:10px;
     }
 
-    .cal-month-view .cal-day-cell.cal-in-month.cal-has-events {
+/*      .calendar.cal-month-view .cal-day-cell.cal-in-month.cal-has-events {
       color: rgb(210, 77, 255) !important;
       visibility: visible;
-    }
+    }  */
 
     .text-center {      
       background: linear-gradient(180deg, #f6a828 50%, #e78f08 50%);     
@@ -54,9 +58,28 @@ h3 {
       color: black;
       opacity: 0.5;
       font-weight: bold;
-   }
+    }
 
-    /*.ng-star-inserted{
-      display: none;
-    }*/
+    .btn-clear {
+      background-color: transparent;
+      border-color: #005cbf;
+      color: #0062cc;    
+    }
 
+    .btn-clear:hover {
+      background-color: #0062cc;
+      border-color: #005cbf;
+      color: white;
+      
+    }
+   
+   
+
+  /*clicked day
+    border-top: solid;
+    border-left: solid;
+    border-bottom: solid;
+    border-right: solid;
+
+
+  
