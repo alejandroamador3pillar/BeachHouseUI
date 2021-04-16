@@ -67,7 +67,7 @@ export class CalendarComponent {
         this.activeDayIsOpen = false;
         this.clear =false;
       } else {
-        this.activeDayIsOpen = true;
+        this.activeDayIsOpen = false;
         this.clear =true;
       }
       this.viewDate = date;
@@ -173,7 +173,7 @@ export class CalendarComponent {
                     
               if (monthsData[k].available)
               {
-                newEvent =
+                /* newEvent =
                             {
                               title: 'Day Enable to Reserve',
                               start: startOfDay(new Date(monthsData[k].date)),
@@ -183,7 +183,7 @@ export class CalendarComponent {
                               resizable: {
                                 beforeStart: true,
                                 afterEnd: true,
-                              }};
+                              }}; */
                 
               }
               else{
@@ -198,8 +198,9 @@ export class CalendarComponent {
                               beforeStart: true,
                               afterEnd: true,
                             }};
+                            this.addEvent(newEvent);
               } 
-            this.addEvent(newEvent);
+            
           //}
           }
         }      

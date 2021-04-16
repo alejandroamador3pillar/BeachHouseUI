@@ -10,7 +10,7 @@
 
 .states{
     text-transform: uppercase;
-
+    display: flex;
 }
 
 .reservations{
