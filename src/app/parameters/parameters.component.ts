@@ -24,7 +24,7 @@ export class ParametersComponent implements OnInit {
   parameter: IParameterModel;
   users: ParametersComponent[];
   user: SocialUser;
-  displayedColumns: string[] = ['id','description', 'value', 'startDate', 'endDate', '$$edit'];
+  displayedColumns: string[] = ['description', 'value', 'startDate', 'endDate', '$$edit'];
   durationInSeconds = 5;
   dataSchema = USER_SCHEMA;
 
