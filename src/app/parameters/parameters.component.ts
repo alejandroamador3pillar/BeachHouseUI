@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ParametersService} from './parameters.service';
 import { IParameterModel } from '../domain/ParameterModel';
 import { SocialUser } from 'lib';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import { of } from 'rxjs';
 
 const USER_SCHEMA = {
@@ -23,8 +24,8 @@ export class ParametersComponent implements OnInit {
   parameter: IParameterModel;
   users: ParametersComponent[];
   user: SocialUser;
-  displayedColumns: string[] = ['id','description', 'value', 'startDate', 'endDate', '$$edit'];
- 
+  displayedColumns: string[] = ['description', 'value', 'startDate', 'endDate', '$$edit'];
+  durationInSeconds = 5;
   dataSchema = USER_SCHEMA;
 
   constructor(private parametersService: ParametersService) { }
@@ -39,11 +40,6 @@ export class ParametersComponent implements OnInit {
       .subscribe(parameters => this.parameters = parameters);
   }
 
-  getUsers(): void {
-    this.parametersService.getUsers()
-      .subscribe(users => this.users = users);
-  }
-
   setParameter(parameter: IParameterModel): void{
 
     parameter.updated_by = "101790084427153843849";//pending to add current user
@@ -52,16 +48,28 @@ export class ParametersComponent implements OnInit {
     this.parametersService.setParameter(parameter)
     .subscribe((data) => {
         console.log(data);
+        this.openSnackBar(data);
         return true;
     },
     (error) => {      
       console.log(error);
+      this.openSnackBar(error);
       this.parameter = null;
       //return of();
       return false; 
     });
   }
 
+  openSnackBar(data: any) {
+    /* this.snackBar.openFromComponent(ParametersComponent, {
+      duration: this.durationInSeconds * 1000,
+    }); */    
+  }
+
+  getUsers(): void {
+    this.parametersService.getUsers()
+      .subscribe(users => this.users = users);
+  }
 
 
 }

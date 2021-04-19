@@ -1,3 +1,14 @@
 .navbar-light  {
    background-color: #283132;
 }
+.nav-item {
+   background-color: #283132;
+}
+
+.nav-link {
+   color: white;   
+}
+
+.nav-link:hover{
+   color: #f6a828;
+}

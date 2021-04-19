@@ -24,8 +24,6 @@ import { CalendarComponent, DialogData } from './calendar/calendar.component';
 import { HeaderComponent } from './header/header.component';
 import { AccountComponent } from './account/account.component';
 import { ReservationsComponent } from './reservations/reservations.component';
-//import { SnackBarComponent } from './ui/snack-bar/snack-bar.component';
-
 
 const routes: Routes = [
   { path: 'account', component: AccountComponent },

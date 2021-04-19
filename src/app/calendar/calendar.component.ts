@@ -12,8 +12,8 @@ import {IReservationModel} from '../domain/ReservationModel';
 
 const colors: any = {  
   reserved: {
-    primary: '#363636',
-    secondary: '#363636',
+    primary: '#7B7B7B', //'#363636',
+    secondary: '#7B7B7B',
   },
   enable: {
     primary: '#D24DFF',
@@ -28,7 +28,7 @@ const colors: any = {
 
 @Component({
   selector: 'app-calendar',  
-  changeDetection: ChangeDetectionStrategy.OnPush,  
+  changeDetection: ChangeDetectionStrategy.Default,  
   styleUrls: ['./calendar.component.css'],
   templateUrl: './calendar.component.html',
 })
@@ -37,9 +37,10 @@ export class CalendarComponent {
 
   reservations: ReserveComponent[];
   availableDates: ReserveComponent[]= [];
+
   view: CalendarView = CalendarView.Month;
   today: number = Date.now();
-
+  clear: boolean = false;
   CalendarView = CalendarView;
 
   viewDate: Date = new Date();
@@ -53,7 +54,7 @@ export class CalendarComponent {
 
   events: CalendarEvent[] = [];
 
-  activeDayIsOpen: boolean = true;
+  activeDayIsOpen: boolean = false;
 
   constructor(private modal: NgbModal, private calendarService: CalendarService, public dialog: MatDialog) {}
 
@@ -64,18 +65,16 @@ export class CalendarComponent {
         events.length === 0
       ) {
         this.activeDayIsOpen = false;
+        this.clear =false;
       } else {
-        this.activeDayIsOpen = true;
+        this.activeDayIsOpen = false;
+        this.clear =true;
       }
       this.viewDate = date;
     }
   }
 
-  eventTimesChanged({
-    event,
-    newStart,
-    newEnd,
-  }: CalendarEventTimesChangedEvent): void {
+  eventTimesChanged({event, newStart, newEnd,}: CalendarEventTimesChangedEvent): void {
     this.events = this.events.map((iEvent) => {
       if (iEvent === event) {
         return {
@@ -132,7 +131,6 @@ export class CalendarComponent {
    
   ngOnInit(): void {     
      this.setDates(); 
-     //this.dayClicked()
   }  
 
    setDates(): void{
@@ -175,7 +173,7 @@ export class CalendarComponent {
                     
               if (monthsData[k].available)
               {
-                newEvent =
+                /* newEvent =
                             {
                               title: 'Day Enable to Reserve',
                               start: startOfDay(new Date(monthsData[k].date)),
@@ -185,7 +183,8 @@ export class CalendarComponent {
                               resizable: {
                                 beforeStart: true,
                                 afterEnd: true,
-                              }};
+                              }}; */
+                
               }
               else{
                 newEvent =
@@ -199,12 +198,13 @@ export class CalendarComponent {
                               beforeStart: true,
                               afterEnd: true,
                             }};
+                            this.addEvent(newEvent);
               } 
-            this.addEvent(newEvent);
+            
           //}
           }
         }      
-      });
+      });      
   } 
 
   reservePopUp(): void {

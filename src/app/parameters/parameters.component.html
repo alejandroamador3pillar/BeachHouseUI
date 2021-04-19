@@ -1,5 +1,4 @@
   <div class="parameters">
-    <!-- <article> -->
         <h2 class="header">Parameters</h2>
         <div>
             <i class="fa fa-check"></i>&nbsp;Here you will be able to edit the value for each parameter and set a starting and ending date for them.<br>
@@ -43,11 +42,13 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-    <!-- </article> -->
-    <br/>
-    <div class="btn btn-primary" mat-button >Test</div>
+    <br/><br />
+    <!-- <div class="btn btn-primary" mat-button >Test</div> -->
+    <div>
+        <a href={{parameters[2].value}} target="_blank">Terms and Conditions</a>
+    </div>
     <br/><br/>
-    <p>{{parameters| json}}</p>
+    <!-- <p>{{parameters| json}}</p> -->
   </div>
 <!-- <h2>Users</h2>
 

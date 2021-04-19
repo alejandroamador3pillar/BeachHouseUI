@@ -42,4 +42,9 @@ table {
     text-transform: capitalize;
     font: 150 16px/16px 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: bold;
+    
+}
+
+.mat-header-row {
+    border-radius: 1%;
 }
