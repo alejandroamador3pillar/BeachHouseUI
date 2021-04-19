@@ -24,17 +24,19 @@ import { CalendarComponent, DialogData } from './calendar/calendar.component';
 import { HeaderComponent } from './header/header.component';
 import { AccountComponent } from './account/account.component';
 import { ReservationsComponent } from './reservations/reservations.component';
+import { UsersComponent } from './users/users.component';
 
 const routes: Routes = [
   { path: 'account', component: AccountComponent },
   { path: 'myreservations', component: ReservationsComponent },
   { path: 'reserve', component: ReserveComponent },
-  { path: 'parameters', component: ParametersComponent }
+  { path: 'parameters', component: ParametersComponent },
+  { path: 'users', component: UsersComponent }
 ];
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, LoginComponent, ParametersComponent, FooterComponent, ReserveComponent,
-     CalendarComponent, HeaderComponent, DialogData, ],
+     CalendarComponent, HeaderComponent, DialogData, UsersComponent, ],
   imports: [BrowserModule, FormsModule, HttpClientModule, SocialLoginModule, BrowserAnimationsModule, MaterialModule,
     CommonModule, NgbModalModule, FlatpickrModule.forRoot(), 
     CalendarModule.forRoot({
