@@ -29,7 +29,8 @@ const routes: Routes = [
   { path: 'account', component: AccountComponent },
   { path: 'myreservations', component: ReservationsComponent },
   { path: 'reserve', component: ReserveComponent },
-  { path: 'parameters', component: ParametersComponent }
+  { path: 'parameters', component: ParametersComponent },
+  { path: 'login', component: LoginComponent }
 ];
 
 @NgModule({
