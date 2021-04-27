@@ -13,7 +13,32 @@
     margin: auto;
 }
 
-.name{
-    color: blue;
+table {
+    width: 90%;
+    margin: auto;
+}
+
+.btn-edit {
+    text-align: right;
+}
+
+.btn-edit:hover{
+    background-color: white ;
+    border-color: white;
+    color: black;
+    opacity: 0.5;
     font-weight: bold;
+ }
+
+.mat-header-cell {
+    color: white;
+    background: linear-gradient(180deg, #f6a828 50%, #e78f08 50%);
+    text-transform: capitalize;
+    font: 150 16px/16px 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    
+}
+
+.mat-header-row {
+    border-radius: 1%;
 }
