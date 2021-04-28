@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { MessageService } from '../message.service';
+import { MessageService } from '../message/message.service';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
-import { CalendarComponent} from '../calendar/calendar.component';
-import { ReserveComponent} from '../reserve/reserve.component';
-import {IReservationModel} from '../domain/ReservationModel';
+// import { CalendarComponent} from '../calendar/calendar.component';
+// import { ReserveComponent} from '../reserve/reserve.component';
+import {IReservationModel} from '../../models/reservation.model';
 
 
 @Injectable({
@@ -24,9 +24,9 @@ export class CalendarService {
     private http: HttpClient,
     private messageService: MessageService) { }
 
-  getReservations():  Observable<ReserveComponent[]>{
-    return this.http.post<ReserveComponent[]>(this.APIUrl+'/reservations', /*user,*/ this.httpOptions).pipe(      
-      catchError(this.handleError<ReserveComponent[]>('getReservations'))
+  getReservations():  Observable<any[]>{
+    return this.http.post<any[]>(this.APIUrl+'/reservations', /*user,*/ this.httpOptions).pipe(      
+      catchError(this.handleError<any[]>('getReservations'))
     ); 
   }
 

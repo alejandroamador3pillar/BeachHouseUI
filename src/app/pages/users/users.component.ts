@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {UsersService} from './users.service';
-import { IUserModel } from '../domain/UserModel';
+import { UsersService } from 'src/app/services/service.index';
+import { IUserModel } from '../../models/user.model';
 import { SocialUser } from 'lib';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { of } from 'rxjs';

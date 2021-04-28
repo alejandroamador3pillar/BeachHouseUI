@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ParametersService} from './parameters.service';
-import { IParameterModel } from '../domain/ParameterModel';
+import { ParametersService } from 'src/app/services/service.index';
+import { IParameterModel } from '../../models/parameter.model';
 import { SocialUser } from 'lib';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { of } from 'rxjs';

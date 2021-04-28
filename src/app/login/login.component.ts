@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { SocialAuthService } from 'lib';
 import { SocialUser } from 'lib';
-import { ParametersService } from '../parameters/parameters.service';
+import { ParametersService } from 'src/app/services/service.index';
 import { GoogleLoginProvider} from 'lib';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';

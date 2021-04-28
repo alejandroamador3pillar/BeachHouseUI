@@ -12,16 +12,16 @@
   </nav>
   <div class="collapse" id="navbarToggleExternalContent">
     <div class="nav-item" >
-      <a class="nav-link" href="/reserve">Reserve Now</a>
+      <a class="nav-link"  [routerLink]="['/reserve']" routerLinkActive="active" >Reserve Now</a>
     </div>
     <div class="nav-item" >
-      <a class="nav-link" href="/myreservations">My Reservations</a>
+      <a class="nav-link"  [routerLink]="['/myreservations']" routerLinkActive="active">My Reservations</a>
     </div>
     <div class="nav-item" >
-      <a class="nav-link" href="/users">Users</a>
+      <a class="nav-link" [routerLink]="['/users']" routerLinkActive="active">Users</a>
     </div>
     <div class="nav-item">
-      <a class="nav-link" href="/parameters">Parameters</a>
+      <a class="nav-link"[routerLink]="['/parameters']" routerLinkActive="active" >Parameters</a>
     </div>
   </div>
 </div>
