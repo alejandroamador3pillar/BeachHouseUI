@@ -39,16 +39,12 @@ export class UsersComponent implements OnInit {
 
   
   getUsers(): void {
-    //user.id='112233445566';
     this.usersService.getUsers()
       .subscribe(users => this.users = users);
       console.log(this.users);
   }
 
   setUser(user: IUserModel): void{
-
-   
-
     this.usersService.setUsers(user)
     .subscribe((data) => {
         console.log(data);
