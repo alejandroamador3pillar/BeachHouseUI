@@ -1,5 +1,5 @@
 import { Component, OnInit ,  ChangeDetectionStrategy,  ViewChild,  TemplateRef, Inject} from '@angular/core';
-import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours, addMonths} from 'date-fns';
+import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours, addMonths, intervalToDuration } from 'date-fns';
 import { Observable, Subject, forkJoin } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView,} from 'angular-calendar';
@@ -7,6 +7,8 @@ import { CalendarService} from './calendar.service';
 import { ReserveComponent} from '../reserve/reserve.component';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {IReservationModel} from '../domain/ReservationModel';
+import {ParametersService} from '../parameters/parameters.service';
+import { IParameterModel } from '../domain/ParameterModel';
 
 
 
@@ -37,6 +39,7 @@ export class CalendarComponent {
 
   reservations: ReserveComponent[];
   availableDates: ReserveComponent[]= [];
+  parameters: IParameterModel[] = [];  
 
   view: CalendarView = CalendarView.Month;
   today: number = Date.now();
@@ -56,20 +59,45 @@ export class CalendarComponent {
 
   activeDayIsOpen: boolean = false;
 
-  constructor(private modal: NgbModal, private calendarService: CalendarService, public dialog: MatDialog) {}
+  checkIn: any = "";
+  checkOut: any = "";
+  clearVisible: boolean = false;
+  errorDescrption: string = "";
+  nights: number = 0;
+
+  constructor(private modal: NgbModal, private calendarService: CalendarService, public dialog: MatDialog, private parametersService: ParametersService) {}
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
-      if (
-        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-        events.length === 0
-      ) {
+      // if ((isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) || events.length === 0 ) {
         this.activeDayIsOpen = false;
         this.clear =false;
-      } else {
+        
+        
+        if(this.checkIn !== ""){
+          this.checkOut = date;
+          console.log('second: ' + this.checkOut); //Validate days
+          this.reservePopUp();
+          /* if(this.validateReservation()){
+            console.log("Date error")
+            
+          }
+          else{
+            this.errorPopUp(this.errorDescrption);
+          } */
+
+          
+        }
+        else{
+          this.checkIn = date;
+          this.clearVisible = true;
+          console.log('first: ' + this.checkIn);//Apply style
+        }
+
+      /* } else {
         this.activeDayIsOpen = false;
         this.clear =true;
-      }
+      } */
       this.viewDate = date;
     }
   }
@@ -130,7 +158,8 @@ export class CalendarComponent {
   }
    
   ngOnInit(): void {     
-     this.setDates(); 
+     this.setDates();
+     this.getParameters();
   }  
 
    setDates(): void{
@@ -207,7 +236,7 @@ export class CalendarComponent {
       });      
   } 
 
-  reservePopUp(): void {
+  cancelPopUp(): void {
 
     
     this.dialog.open(DialogData, {
@@ -215,25 +244,69 @@ export class CalendarComponent {
         title: 'Reservation'
       }
     });
-    this.calendarService.setReservation();
+    //this.calendarService.setReservation();
     /*this.events = [];
     this.setDates();*/
   }
 
-  cancelPopUp(): void {
-     /* emailSend: Boolean;
-    this.calendarService.getCancelReservation( 101790084427153843849, 12).subscribe(x => emailSend = x); */
+  reservePopUp(): void {
 
-    //if (emailSend){
+      this.nights = intervalToDuration({start: new Date(this.checkIn), end: new Date(this.checkOut)}).days;
+
       this.dialog.open(DialogData, {
       data: {
-        title: 'Cancelation'
+        title: 'Confirm your reservation',
+        description: "",
+        checkIn: new Date(this.checkIn).toUTCString(),// + ' ' + this.parameters[0].value ,
+        checkOut: new Date(this.checkOut).toUTCString(),//  + ' ' + this.parameters[1].value ,
+        isError: false,
+        terms: this.parameters[2].value,
+        nights: this.nights,
+
       }
     });
-   // }
+  }
+
+  errorPopUp(error: string){
+    //You must select at least one night for your reservation. Please change your selection.
+    this.dialog.open(DialogData, {
+      data: {
+        title: 'Error',
+        description: error,
+        isError: true,
+        checkIn: "",
+        checkOut:"",
+        terms: "",
+        nights: 0,
+        price: 30 * this.nights,
+      }
+    });
+  }
+
+  clearDates(){
+    this.checkIn = "";
+    this.checkOut = "";
+    this.clearVisible = false;
+    this.errorDescrption = "";
+    this.nights=0;
+    console.log('first:'+ this.checkIn + '  second' + this.checkOut)
+    //return to styles
+  }
+
+  getParameters(): void {
+    this.parametersService.getParameters()
+      .subscribe(parameters => this.parameters = parameters);
+  }
+
+  validateReservation(): boolean{
+    if(isSameDay(this.checkIn, this.checkOut)){
+      this.errorDescrption = "You can't select the check Out the same day as Check In ";
+      return false;
+    }
+    else{
+      return true;
+    }   
     
-    /*this.events = [];
-    this.setDates();*/
   }
   
 }
@@ -241,12 +314,22 @@ export class CalendarComponent {
 
 @Component({
     selector: 'dialog-data',
+   // styleUrls: ['.dialog-data.css'],
     templateUrl: 'dialog-data.html',
   })
   export class DialogData {
-    constructor(public dialogRef: MatDialogRef<DialogData>, @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
     title: string = "";
+    description: string = "";
+    isError: boolean = false;
+
+    constructor(public dialogRef: MatDialogRef<DialogData>, @Inject(MAT_DIALOG_DATA) public data: DialogData, private calendarService: CalendarService,) {}
+ 
     close(): void {
+      this.description = "";
       this.dialogRef.close();
+    }
+
+    setReservation(){
+        this.calendarService.setReservation(this.data).subscribe(x => this.description = x);
     }
   }
