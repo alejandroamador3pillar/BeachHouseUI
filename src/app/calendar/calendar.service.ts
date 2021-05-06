@@ -58,21 +58,28 @@ export class CalendarService {
     ); 
   }
 
-  setReservation(): Observable<IReservationModel[]> {
-    var body: string = JSON.stringify({"StartDate": new Date().toLocaleDateString(), "LocationId": 1, "Nights": 1} );
+  setReservation(data: any): Observable<any> {
+    var body: string = JSON.stringify({"StartDate": new Date(data.checkIn).toJSON(), "LocationId": 1, "Nights": data.nights} );
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'user_id': '101790084427153843849',
+      'requestor': '101790084427153843849',
+    });
 
-    return this.http.post<IReservationModel[]>(this.APIUrl+'/reservation', body, {headers: new HttpHeaders({ 'user_id': '101790084427153843849' }),})
+    return this.http.post<any>(this.APIUrl+'/reservation', body, {headers})
     .pipe(
       tap((response: any) => {
-        if(response.status == "200"){
+        /* if(response.status == "200"){
             true;                 
         }else{
             console.log("Error cancelling reservation: " + response.status);
             false;
-        }
+        } */
+        response.body;
+        console.log(response.body);
     })
       ,
-      catchError(this.handleError<Boolean[]>('getCancelReservation', []))
+      catchError(this.handleError<Boolean[]>('setReservation', []))
     ); 
   }
 
