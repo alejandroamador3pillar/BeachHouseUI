@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { ReserveComponent } from './reserve.component';
+// import { any } from './reserve.component';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
-import {MessageService} from '../message.service';
+import {MessageService} from '../message/message.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +19,11 @@ export class ReserveService {
     private http: HttpClient,
     private messageService: MessageService) { }
 
-  getReservations(): Observable<ReserveComponent[]> {
-    return this.http.get<ReserveComponent[]>(this.APIUrl+'/reservations')
+  getReservations(): Observable<any[]> {
+    return this.http.get<any[]>(this.APIUrl+'/reservations')
     .pipe(
       tap(_ => this.log('fetched Reservations')),
-      catchError(this.handleError<ReserveComponent[]>('getReservations', []))
+      catchError(this.handleError<any[]>('getReservations', []))
     );
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ReserveService} from './reserve.service';
+import { ReserveService } from 'src/app/services/service.index';
 
 @Component({
   selector: 'app-reserve',
