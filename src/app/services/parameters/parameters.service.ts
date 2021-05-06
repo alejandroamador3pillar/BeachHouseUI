@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
-import { environment } from '../../environments/environment';
-import { UsersComponent } from './users.component';
-import { MessageService } from '../message.service';
+import { environment } from '../../../environments/environment';
+// import { ParametersComponent } from './parameters.component';
+import { MessageService } from '../message/message.service';
 import {  HttpClient, HttpHeaders, HttpErrorResponse,} from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { SocialUser } from 'lib';
-import { IUserModel } from '../domain/UserModel';
-
+import { IParameterModel } from '../../models/parameter.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UsersService {
+export class ParametersService {
    public APIUrl = environment.apiPath; //API URL
 
   httpOptions = {
@@ -24,31 +23,34 @@ export class UsersService {
     private messageService: MessageService
   ) {}
 
-  getUsers(): Observable<IUserModel[]> {
+  getParameters(): Observable<IParameterModel[]> {
+    //const parameters = of(parameters)
+    return this.http.get<IParameterModel[]>(this.APIUrl + '/params').pipe(
+      tap((_) => this.log('fetched parameters')),
+      catchError(this.handleError<IParameterModel[]>('getParameters', []))
+    );
+  }
+  
+  setParameter(parameter: IParameterModel): Observable<any>{
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'user_id': '101790084427153843849',
+      user_id: parameter.updated_by,
     });
-
-    //const parameters = of(parameters)
-    //return this.http.get<IUserModel[]>(this.APIUrl + '/user').pipe(
-    return this.http.get<IUserModel[]>(this.APIUrl + '/user',{headers} ).pipe(
-      tap((_) => this.log('fetched users')),
-      catchError(this.handleError<IUserModel[]>('getUsers', []))
+    return this.http.put<IParameterModel>(this.APIUrl + '/params', parameter, {headers} ).pipe(
+      tap((_) => this.log('seted parameter')),
+      catchError(this.handleError<IParameterModel[]>('setParameter', []))
     );
   }
 
-  setUsers(user: IUserModel): Observable<any>{
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'user_id': '101790084427153843849',
-    });
-    return this.http.put<IUserModel>(this.APIUrl + '/user', JSON.stringify({user}), {headers} ).pipe(
-      tap((_) => this.log('seted user')),
-      catchError(this.handleError<IUserModel[]>('setUser', []))
-    );    
-  }
 
+  //Users pending to move
+
+  getUsers(): Observable<any[]> {
+    return this.http.get<any[]>(this.APIUrl + '/users').pipe(
+      tap((_) => this.log('fetched Users')),
+      catchError(this.handleError<any[]>('getUsers', []))
+    );
+  }
 
   /** POST: add a new user to the server */
   addUser(user: SocialUser): Observable<any> {
@@ -82,7 +84,7 @@ export class UsersService {
   }
 
   private log(message: string) {
-    this.messageService.add(`UserService: ${message}`);
+    this.messageService.add(`ParameterService: ${message}`);
   }
 
   private getServerErrorMessage(error: HttpErrorResponse): string {
@@ -105,10 +107,3 @@ export class UsersService {
     }
   }
 }
-
-
-//--------------------------------------------------------------------------------------------------
-
-
-
-

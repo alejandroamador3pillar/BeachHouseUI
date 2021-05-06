@@ -12,7 +12,7 @@ import { map } from 'rxjs/operators';
 export class RestService {
 
   constructor(private http: HttpClient) { }
-}
+
 
 private extractData(res: Response): any {
     const body = res;
@@ -36,3 +36,4 @@ private handleError(error: HttpErrorResponse): any {
       catchError(this.handleError)
     );
   }
+}

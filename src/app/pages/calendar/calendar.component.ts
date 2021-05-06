@@ -3,12 +3,11 @@ import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMo
 import { Observable, Subject, forkJoin } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView,} from 'angular-calendar';
-import { CalendarService} from './calendar.service';
-import { ReserveComponent} from '../reserve/reserve.component';
+import { CalendarService } from 'src/app/services/service.index';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {IReservationModel} from '../domain/ReservationModel';
-import {ParametersService} from '../parameters/parameters.service';
-import { IParameterModel } from '../domain/ParameterModel';
+import {ParametersService} from '../../services/parameters/parameters.service';
+import { IParameterModel } from '../../models/parameter.model';
+import {IReservationModel} from '../../models/reservation.model';
 
 
 
@@ -37,8 +36,8 @@ const colors: any = {
 export class CalendarComponent {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
 
-  reservations: ReserveComponent[];
-  availableDates: ReserveComponent[]= [];
+  // reservations: ReserveComponent[];
+  // availableDates: ReserveComponent[]= [];
   parameters: IParameterModel[] = [];  
 
   view: CalendarView = CalendarView.Month;
@@ -141,8 +140,8 @@ export class CalendarComponent {
   }
 
   getReservations(start: string, end: string): void {
-    this.calendarService.getReservations()
-    .subscribe(reservations => this.reservations = reservations);
+    // this.calendarService.getReservations()
+    // .subscribe(reservations => this.reservations = reservations);
   }
 
   getAvailableDates(month: number, year: number): void {
