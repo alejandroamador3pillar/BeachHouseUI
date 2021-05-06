@@ -39,7 +39,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .cal-month-view .cal-day-cell.cal-in-month.cal-has-events {
    /*  background: linear-gradient(135deg, #D24DFF 50%, #7B7B7B 50%);*/
-    background-color: #7B7B7B;
+    background-color: #fac7a5;
 } 
 
 .cal-month-view .cal-day-cell.cal-in-month.cal-has-events :hover{
@@ -48,7 +48,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 } 
 
 .cal-month-view .cal-day-cell.cal-in-month{
-    background-color: #D24DFF;
+    background-color: rgb(199, 255, 199);
 }   
 
 /* 
