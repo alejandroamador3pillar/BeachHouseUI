@@ -43,10 +43,10 @@ export class UsersService {
       'Content-Type': 'application/json',
       'user_id': '101790084427153843849',
     });
-    return this.http.put<IUserModel>(this.APIUrl + '/user', user, {headers} ).pipe(
+    return this.http.put<IUserModel>(this.APIUrl + '/user', JSON.stringify({user}), {headers} ).pipe(
       tap((_) => this.log('seted user')),
       catchError(this.handleError<IUserModel[]>('setUser', []))
-    );
+    );    
   }
 
 
