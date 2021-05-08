@@ -13,7 +13,7 @@
         <button class="btn btn-social-icon btn-google mx-1" (click)="signInWithGoogle()"><span class="fab fa-google"></span></button>
       </div>
     </div>
-    <div *ngIf="user" class="card text-center" hidden>
+    <div *ngIf="user" class="card text-center">
       <h6 class="card-header">
         Welcome {{ user.name }}!
       </h6>
@@ -29,7 +29,7 @@
       </div>
       <div class="card-block" *ngIf="user.provider === GoogleLoginProvider.PROVIDER_ID">
         <!-- <button class="btn" (click)="refreshGoogleToken()">Sign In</button> -->
-        <!-- <button class="btn" (click)="addUser()">Save User</button>     -->      
+        <!-- <button class="btn" (click)="addUser()">Save User</button>     -->
       </div>
       <div class="card-block">
         <button class="btn btn-danger" (click)="signOut()">Sign out</button>

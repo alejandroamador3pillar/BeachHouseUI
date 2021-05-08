@@ -6,7 +6,7 @@
   h3 {
       margin: 0 0 10px;
     }
-  
+
   pre {
     background-color: #f5f5f5;
     padding: 15px;
@@ -27,15 +27,15 @@
       visibility: visible;
     }  */
 
-    .text-center {      
-      background: linear-gradient(180deg, #f6a828 50%, #e78f08 50%);     
+    .text-center {
+      background: linear-gradient(180deg, #f6a828 50%, #e78f08 50%);
       border-radius: 1%;
       align-items: center;
     }
 
     .header {
-      color: white;      
-      text-align: center; 
+      color: white;
+      text-align: center;
     }
 
     .btn-month-pre{
@@ -63,17 +63,17 @@
     .btn-clear {
       background-color: transparent;
       border-color: #005cbf;
-      color: #0062cc;    
+      color: #0062cc;
     }
 
     .btn-clear:hover {
       background-color: #0062cc;
       border-color: #005cbf;
       color: white;
-      
+
     }
-   
-   
+
+
 
   /*clicked day
     border-top: solid;
@@ -82,4 +82,3 @@
     border-right: solid;
 */
 
-  
