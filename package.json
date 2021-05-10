@@ -11,7 +11,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^10.2.4",
+    "@angular/animations": "^10.2.5",
     "@angular/cdk": "^10.2.7",
     "@angular/common": "^10.2.3",
     "@angular/compiler": "^10.2.3",
@@ -27,7 +27,7 @@
     "angularx-flatpickr": "^6.5.2",
     "angularx-social-login": "^3.5.6",
     "bootstrap": "^4.5.0",
-    "date-fns": "^2.19.0",
+    "date-fns": "^2.16.1",
     "flatpickr": "^4.6.9",
     "jquery": "^3.5.1",
     "popper.js": "^1.14.3",
