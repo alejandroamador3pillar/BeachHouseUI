@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
       this.user = user;
+      sessionStorage.setItem("img",user.photoUrl);
     });
   }
 

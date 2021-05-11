@@ -1,5 +1,5 @@
 <div class="users">
-  
+
     <h2 class="header">Users</h2>
         <div>
             <i class="fa fa-check"></i>&nbsp;Here you will be able to edit the value for each User and set a starting and ending date for them.<br>
@@ -43,9 +43,14 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
+        <div class="d-flex justify-content-center" *ngIf="loading">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
     <br/><br />
     <!-- <div class="btn btn-primary" mat-button >Test</div> -->
-    
+
      <!--<div>
         <a href={{users[2].value}} target="_blank">Terms and Conditions</a>
     </div>-->
@@ -59,6 +64,6 @@
 
 
 
-</div> 
+</div>
 
 

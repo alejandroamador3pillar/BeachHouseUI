@@ -7,14 +7,13 @@ import { of } from 'rxjs';
 
 const USER_SCHEMA = {
   "id": "text",
-  "role": "int",
+  "role": "number",
   "active": "int",
   "email": "text",
   "firstName": "text",
   "lastName": "text",
-  "phone": "text" 
+  "phone": "number"
 }
-
 
 
 
@@ -30,46 +29,50 @@ export class UsersComponent implements OnInit {
   displayedColumns: string[] = ['id','lastName','firstName', 'role', 'active', 'email','phone', '$$edit'];
   durationInSeconds = 5;
   dataSchema = USER_SCHEMA;
- 
+  loading = true;
+
   constructor(private usersService: UsersService) { }
 
   ngOnInit(): void {
     this.getUsers();
   }
 
-  
+
   getUsers(): void {
     this.usersService.getUsers()
-      .subscribe(users => this.users = users);
+      .subscribe(users => {this.users = users;
+      this.loading = false});
       console.log(this.users);
   }
 
   setUser(user: IUserModel): void{
+    user.phone=Number(user.phone);
+    console.log(user);
     this.usersService.setUsers(user)
     .subscribe((data) => {
         console.log(data);
         this.openSnackBar(data);
         return true;
     },
-    (error) => {      
+    (error) => {
       console.log(error);
       this.openSnackBar(error);
       this.user = null;
       //return of();
-      return false; 
+      return false;
     });
   }
 
   openSnackBar(data: any) {
     /* this.snackBar.openFromComponent(ParametersComponent, {
       duration: this.durationInSeconds * 1000,
-    }); */    
+    }); */
   }
 }
 
 //----------------------------------------
 
-  
+
 
 
 
