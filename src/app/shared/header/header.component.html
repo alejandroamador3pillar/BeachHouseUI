@@ -1,3 +1,41 @@
-<header>
-    
-</header>
+<div class="pos-f-t">
+  <nav class="navbar-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent"
+      aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon">
+        <i class="fas fa-bars" style="color:#fff; font-size:28px;">&nbsp;</i>
+      </span>
+    </button>
+    <a class="navbar-logo">
+      <!--href="#" -->
+      <img src="../../assets/images/logo_banner.png" width="400" height="103">
+    </a>
+    <!-- <div class="user">Log out!</div> -->
+
+    <div class="dropdown userPhoto" *ngIf="user">
+      <img src="{{user.photoUrl}}" alt="UserPhoto" class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <button class="btn btn-danger dropdown-item" (click)="signOut()">Sign out</button>
+      </div>
+    </div>
+    <div class="login">
+      <button type="button" class="btn btn-info" *ngIf="!user" routerLink="./login">Login</button>
+    </div>
+  </nav>
+  <div class="collapse" id="navbarToggleExternalContent">
+    <div class="nav-item">
+      <a class="nav-link" [routerLink]="['/reserve']" routerLinkActive="active">Reserve Now</a>
+    </div>
+    <div class="nav-item">
+      <a class="nav-link" [routerLink]="['/myreservations']" routerLinkActive="active">My Reservations</a>
+    </div>
+    <div class="nav-item">
+      <a class="nav-link" [routerLink]="['/users']" routerLinkActive="active">Users</a>
+    </div>
+    <div class="nav-item">
+      <a class="nav-link" [routerLink]="['/parameters']" routerLinkActive="active">Parameters</a>
+    </div>
+  </div>
+
+</div>
