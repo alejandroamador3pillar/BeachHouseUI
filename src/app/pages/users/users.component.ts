@@ -12,7 +12,7 @@ const USER_SCHEMA = {
   "email": "text",
   "firstName": "text",
   "lastName": "text",
-  "phone": "text" 
+  "phone": "number" 
 }
 
 

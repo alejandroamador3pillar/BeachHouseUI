@@ -1,0 +1,37 @@
+.navbar-light  {
+   background-color: #283132;
+   position: relative;
+}
+.nav-item {
+   background-color: #283132;
+}
+
+.nav-link {
+   color: white;   
+}
+
+.nav-link:hover{
+   color: #f6a828;
+}
+.userPhoto{
+   z-index: 3;
+   width: 60px; 
+   height: 60px; 
+   position: absolute; 
+   top: 25px; 
+   right: 30px;      
+}
+.userPhoto>img{
+   width: 60px;
+   height: 60px;
+   border-radius: 60px;
+   overflow: hidden;
+}
+
+.login{
+   width: 60px; 
+   height: 60px; 
+   position: absolute; 
+   top: 25px; 
+   right: 30px;
+}
