@@ -325,6 +325,8 @@ export class CalendarComponent {
     nights: number=0;
     terms: string="";
     checked=false;
+    error: any;
+    loading= false;
 
     constructor(public dialogRef: MatDialogRef<DialogData>, @Inject(MAT_DIALOG_DATA) public data: DialogData, private calendarService: CalendarService,) {}
 
@@ -334,6 +336,7 @@ export class CalendarComponent {
     }
 
     setReservation(){
-        this.calendarService.setReservation(this.data).subscribe(x => {this.description = x; console.log(x)});
+      this.loading = true;
+        this.calendarService.setReservation(this.data).subscribe(x => {this.description = x; this.loading = false}, error => {this.error = error.error; this.loading = false });
     }
   }

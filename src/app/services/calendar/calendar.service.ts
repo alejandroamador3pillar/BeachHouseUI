@@ -78,8 +78,8 @@ export class CalendarService {
         response.body;
         console.log(response.body);
     })
-      ,
-      catchError(this.handleError<Boolean[]>('setReservation', []))
+      /*,
+      catchError(this.handleError<Boolean[]>('setReservation', []))*/
     );
   }
 

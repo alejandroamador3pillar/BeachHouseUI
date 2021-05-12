@@ -10,7 +10,7 @@ import {MessageService} from '../message/message.service';
 })
 export class ReserveService {
   APIUrl = 'https://localhost:44377';//API URL pending to make global
-  
+
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -29,9 +29,9 @@ export class ReserveService {
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-  
-      console.error(error); 
-  
+
+      console.error(error);
+
       return of(result as T);
     };
   }
