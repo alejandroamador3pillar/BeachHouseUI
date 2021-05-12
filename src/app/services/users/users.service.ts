@@ -27,7 +27,7 @@ export class UsersService {
   getUsers(): Observable<IUserModel[]> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'user_id': '103205611098648087343',
+      'user_id': '101790084427153843849',
     });
 
     //const parameters = of(parameters)
@@ -41,7 +41,7 @@ export class UsersService {
   setUsers(user: IUserModel): Observable<any>{
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'user_id': '103205611098648087343',
+      'user_id': '101790084427153843849',
     });
     return this.http.put<IUserModel>(this.APIUrl + '/user', user, {headers} ).pipe(
       tap((_) => this.log('seted user')),
