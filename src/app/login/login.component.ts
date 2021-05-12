@@ -7,6 +7,7 @@ import { GoogleLoginProvider} from 'lib';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AppComponent } from '../app.component';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -20,18 +21,23 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: SocialAuthService,
-    private parametersService: ParametersService
-  ) {}
+    private parametersService: ParametersService,
+    private ruta:Router
+  ) {
+
+  }
 
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
       this.user = user;
       sessionStorage.setItem("img",user.photoUrl);
     });
+
   }
 
   async signInWithGoogle(): Promise<void> {
     await this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    this.ruta.navigate(['../reserve']);
     this.addUser();
     AppComponent.app.reset();
   }
@@ -45,6 +51,8 @@ export class LoginComponent implements OnInit {
   }
 
   addUser(): void {
+    console.log(this.user);
+
     if (!this.user) {
       return;
     }
@@ -56,7 +64,7 @@ export class LoginComponent implements OnInit {
         },
         (error) => {
           //mensaje al usuario
-          console.log(error);
+          alert(error);
           this.user = null;
           return of();
         }

@@ -15,8 +15,6 @@ const USER_SCHEMA = {
   "phone": "number"
 }
 
-
-
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
