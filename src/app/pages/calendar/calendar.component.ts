@@ -11,7 +11,7 @@ import {IReservationModel} from '../../models/reservation.model';
 
 
 
-const colors: any = {  
+const colors: any = {
   reserved: {
     primary: '#7B7B7B', //'#363636',
     secondary: '#7B7B7B',
@@ -28,8 +28,8 @@ const colors: any = {
 };
 
 @Component({
-  selector: 'app-calendar',  
-  changeDetection: ChangeDetectionStrategy.Default,  
+  selector: 'app-calendar',
+  changeDetection: ChangeDetectionStrategy.Default,
   styleUrls: ['./calendar.component.css'],
   templateUrl: './calendar.component.html',
 })
@@ -38,7 +38,7 @@ export class CalendarComponent {
 
   // reservations: ReserveComponent[];
   // availableDates: ReserveComponent[]= [];
-  parameters: IParameterModel[] = [];  
+  parameters: IParameterModel[] = [];
 
   view: CalendarView = CalendarView.Month;
   today: number = Date.now();
@@ -50,7 +50,7 @@ export class CalendarComponent {
   modalData: {
     action: string;
     event: CalendarEvent;
-  };  
+  };
 
   refresh: Subject<any> = new Subject();
 
@@ -71,21 +71,21 @@ export class CalendarComponent {
       // if ((isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) || events.length === 0 ) {
         this.activeDayIsOpen = false;
         this.clear =false;
-        
-        
+
+
         if(this.checkIn !== ""){
           this.checkOut = date;
           console.log('second: ' + this.checkOut); //Validate days
           this.reservePopUp();
           /* if(this.validateReservation()){
             console.log("Date error")
-            
+
           }
           else{
             this.errorPopUp(this.errorDescrption);
           } */
 
-          
+
         }
         else{
           this.checkIn = date;
@@ -122,7 +122,7 @@ export class CalendarComponent {
 
   addEvent(event: CalendarEvent): void {
     this.events = [
-      ...this.events,      
+      ...this.events,
       event,
     ];
   }
@@ -155,11 +155,11 @@ export class CalendarComponent {
     //this.availableDates.push();
       //.subscribe(availableDates => this.availableDates = availableDates);
   }
-   
-  ngOnInit(): void {     
+
+  ngOnInit(): void {
      this.setDates();
      this.getParameters();
-  }  
+  }
 
    setDates(): void{
 
@@ -174,18 +174,18 @@ export class CalendarComponent {
         month3: null,
         month4: null,
         month5: null
-      }; 
-      
+      };
+
       let newEvent: CalendarEvent;
-      
+
       for(let i = month, j = 0; i < (month + 6); i++, j++){
 
          var currentYear = year;
           if(i == 13){
             currentMonth = 1;
               year + 1;
-          } 
-          
+          }
+
           dates[`month${j}`] = this.calendarService.getAvailableDates(currentMonth, year);
           currentMonth++;
       }
@@ -198,7 +198,7 @@ export class CalendarComponent {
 
           for(let k = 0; k < monthsData.length; k++){
             //if ( new Date(monthsData[k].date).toLocaleString() >=  new Date().toLocaleString()){
-                    
+
               if (monthsData[k].available)
               {
                 /* newEvent =
@@ -212,7 +212,7 @@ export class CalendarComponent {
                                 beforeStart: true,
                                 afterEnd: true,
                               }}; */
-                
+
               }
               else{
                 newEvent =
@@ -227,17 +227,17 @@ export class CalendarComponent {
                               afterEnd: true,
                             }};
                             this.addEvent(newEvent);
-              } 
-            
+              }
+
           //}
           }
-        }      
-      });      
-  } 
+        }
+      });
+  }
 
   cancelPopUp(): void {
 
-    
+
     this.dialog.open(DialogData, {
       data: {
         title: 'Reservation'
@@ -304,10 +304,10 @@ export class CalendarComponent {
     }
     else{
       return true;
-    }   
-    
+    }
+
   }
-  
+
 }
 
 
@@ -320,15 +320,23 @@ export class CalendarComponent {
     title: string = "";
     description: string = "";
     isError: boolean = false;
+    checkIn: string ="";
+    checkOut: string ="";
+    nights: number=0;
+    terms: string="";
+    checked=false;
+    error: any;
+    loading= false;
 
     constructor(public dialogRef: MatDialogRef<DialogData>, @Inject(MAT_DIALOG_DATA) public data: DialogData, private calendarService: CalendarService,) {}
- 
+
     close(): void {
       this.description = "";
       this.dialogRef.close();
     }
 
     setReservation(){
-        this.calendarService.setReservation(this.data).subscribe(x => this.description = x);
+      this.loading = true;
+        this.calendarService.setReservation(this.data).subscribe(x => {this.description = x; this.loading = false}, error => {this.error = error.error; this.loading = false });
     }
   }

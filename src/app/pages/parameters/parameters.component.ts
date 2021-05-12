@@ -11,7 +11,7 @@ const USER_SCHEMA = {
   "value": "text",
   "startDate": "date",
   "endDate": "date",
-  "updated_by": "text" 
+  "updated_by": "text"
 }
 
 @Component({
@@ -27,6 +27,7 @@ export class ParametersComponent implements OnInit {
   displayedColumns: string[] = ['description', 'value', 'startDate', 'endDate', '$$edit'];
   durationInSeconds = 5;
   dataSchema = USER_SCHEMA;
+  loading = true;
 
   constructor(private parametersService: ParametersService) { }
 
@@ -37,12 +38,13 @@ export class ParametersComponent implements OnInit {
 
   getParameters(): void {
     this.parametersService.getParameters()
-      .subscribe(parameters => this.parameters = parameters);
+      .subscribe(parameters => {this.parameters = parameters;
+      this.loading = false;});
   }
 
   setParameter(parameter: IParameterModel): void{
 
-    parameter.updated_by = "101790084427153843849";//pending to add current user
+    parameter.updated_by = "103205611098648087343";//pending to add current user
     //console.log(parameter);
 
     this.parametersService.setParameter(parameter)
@@ -51,19 +53,19 @@ export class ParametersComponent implements OnInit {
         this.openSnackBar(data);
         return true;
     },
-    (error) => {      
+    (error) => {
       console.log(error);
       this.openSnackBar(error);
       this.parameter = null;
       //return of();
-      return false; 
+      return false;
     });
   }
 
   openSnackBar(data: any) {
     /* this.snackBar.openFromComponent(ParametersComponent, {
       duration: this.durationInSeconds * 1000,
-    }); */    
+    }); */
   }
 
   getUsers(): void {

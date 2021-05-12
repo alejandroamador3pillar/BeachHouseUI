@@ -6,9 +6,10 @@ import { CommonModule } from '@angular/common';
 import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './ui/material.module';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
-import { SocialLoginModule, SocialAuthServiceConfig } from 'lib';
+import { SocialLoginModule, SocialAuthServiceConfig, SocialAuthService } from 'lib';
 import { GoogleLoginProvider } from 'lib';
 
 import { AppComponent } from './app.component';
@@ -28,6 +29,7 @@ import { PagesComponent } from './pages/pages.component';
 import { SharedModule } from './shared/shared.module';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 
 
 @NgModule({
@@ -41,6 +43,8 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     MaterialModule,
     CommonModule,
     NgbModalModule,
+    ModalModule.forRoot(),
+    NgIdleKeepaliveModule.forRoot(),
     APP_ROUTES,
     SharedModule,
     ServiceModule,

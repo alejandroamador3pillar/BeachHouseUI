@@ -42,10 +42,15 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
+        <div class="d-flex justify-content-center" *ngIf="loading">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
     <br/><br />
     <!-- <div class="btn btn-primary" mat-button >Test</div> -->
     <div>
-        <a href={{parameters[2].value}} target="_blank">Terms and Conditions</a>
+        <a href={{parameters[2]?.value}} target="_blank">Terms and Conditions</a>
     </div>
     <br/><br/>
     <!-- <p>{{parameters| json}}</p> -->
