@@ -14,6 +14,10 @@ npm install --save flatpickr angularx-flatpickr
 
 npm install --save @angular/material @angular/cdk @angular/animations
 
+npm install --save @ng-idle/core
+
+npm i @ng-idle/keepalive
+
 To run type in cmd prompt:
 
 ng build lib
