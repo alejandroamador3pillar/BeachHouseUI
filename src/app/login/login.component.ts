@@ -6,6 +6,7 @@ import { ParametersService } from 'src/app/services/service.index';
 import { GoogleLoginProvider} from 'lib';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-login',
@@ -32,6 +33,7 @@ export class LoginComponent implements OnInit {
   async signInWithGoogle(): Promise<void> {
     await this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
     this.addUser();
+    AppComponent.app.reset();
   }
 
   signOut(): void {
