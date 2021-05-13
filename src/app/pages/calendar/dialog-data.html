@@ -1,0 +1,66 @@
+<h1 mat-dialog-title class="mat-dialog-title ">{{data.title}}</h1>
+<!-- <div *ng-If="{{data.isError}}"> -->
+  <div mat-dialog-content>
+  <!-- <mat-form-field> -->
+    <!-- <mat-label>Email notificacion send it.</mat-label> -->
+  <!-- </mat-form-field> -->
+</div>
+<div>
+  <table class="reservation-summary">
+    <tbody>
+      <tr>
+        <th colspan="2">Reservation Summary</th>
+      </tr>
+      <tr class="summary">
+        <td>Check In: </td>
+        <td>{{data.checkIn}}</td>
+      </tr>
+      <tr class="summary">
+        <td>Check Out: </td>
+        <td>{{data.checkOut}}</td>
+      </tr>
+      <tr>
+        <td>Total Nights: </td>
+        <td>{{data.nights}}</td>
+      </tr>
+      <tr>
+        <td colspan="2" style="height:20px"></td>
+      </tr>
+      <tr>
+        <th colspan="2">Rates</th>
+      </tr>
+      <tr class="summary">
+        <td>{{data.checkIn}} <i class="fa fa-caret-right"></i> {{data.checkOut}}  :</td>
+        <td>$ {{data.nights * 30 }} (USD)</td>
+      </tr>
+      <tr>
+        <td>Total Charge: </td>
+        <td>$ {{data.nights * 30 }} (USD)</td>
+      </tr>
+      <tr>
+        <td>Charge per person  (Full Occupancy): </td>
+        <td>$ {{data.nights * 3.75 }} (USD)</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<br/>
+ <div>
+   <mat-checkbox class="example-margin" [(ngModel)]="checked">I accept the Bejuco Beach House <a href="{{data.terms}}">Terms of Use</a></mat-checkbox>
+ </div>
+<!--</div>
+ <div *ng-If="{{data.isError}}">
+  <div mat-dialog-content>
+    <mat-label>Error Message!</mat-label>
+  </div>
+</div>-->
+<br/>
+<div class="spinner-border text-primary" role="status" *ngIf="loading">
+  <span class="sr-only">Loading...</span>
+</div>
+<p style="color: red;">{{error}}</p>
+<br/>
+<mat-dialog-actions>
+    <button class="btn btn-primary"  mat-button (click)="setReservation()"  [disabled]="!this.checked">Accept Reservation</button>
+    <button class="btn btn-danger" mat-button (click)="close()">Cancel</button>
+</mat-dialog-actions>
