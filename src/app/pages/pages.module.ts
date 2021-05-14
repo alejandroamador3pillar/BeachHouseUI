@@ -21,6 +21,7 @@ import { AccountComponent } from './account/account.component';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { UsersComponent } from './users/users.component';
 import { CalendarComponent, DialogData } from './calendar/calendar.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { CalendarComponent, DialogData } from './calendar/calendar.component';
     SharedModule,
     PAGES_ROUTES,
     FormsModule,
+    MatSnackBarModule,
     MaterialModule,
     FlatpickrModule.forRoot(),
     CalendarModule.forRoot({
