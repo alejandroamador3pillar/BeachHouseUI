@@ -1,0 +1,10 @@
+.modal-title{
+  margin: -15px -15px 20px;
+  width: 1000px;
+    display: block;
+    background: gray;
+    border-radius: 4px;
+    color: white;
+    padding-left: 15px;
+    padding: 8px;
+}

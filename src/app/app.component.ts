@@ -4,6 +4,7 @@ import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 import { Keepalive } from '@ng-idle/keepalive';
 import { SocialAuthService } from 'dist/lib';
 import { BsModalRef, ModalDirective } from 'ngx-bootstrap/modal';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-root',
