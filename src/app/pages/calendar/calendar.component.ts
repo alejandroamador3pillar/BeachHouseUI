@@ -337,6 +337,6 @@ export class CalendarComponent {
 
     setReservation(){
       this.loading = true;
-        this.calendarService.setReservation(this.data).subscribe(x => {this.description = x; this.loading = false}, error => {this.error = error.error; this.loading = false });
+        this.calendarService.setReservation(this.data).subscribe(x => {this.description = x; this.loading = false}, error => {this.error = error.error; this.loading = false;});
     }
   }
