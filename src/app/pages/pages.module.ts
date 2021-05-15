@@ -21,6 +21,7 @@ import { AccountComponent } from './account/account.component';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { UsersComponent } from './users/users.component';
 import { CalendarComponent, DialogData } from './calendar/calendar.component';
+import { SeasonsComponent } from './seasons/seasons.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { CalendarComponent, DialogData } from './calendar/calendar.component';
     UsersComponent,
     CalendarComponent,
     DialogData,
+    SeasonsComponent,
   ],
   exports: [CalendarComponent],
   entryComponents: [DialogData],
