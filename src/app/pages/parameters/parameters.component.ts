@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ParametersService } from 'src/app/services/service.index';
 import { IParameterModel } from '../../models/parameter.model';
 import { SocialUser } from 'lib';
+import { SocialAuthService } from 'lib';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { of } from 'rxjs';
 
@@ -28,12 +29,18 @@ export class ParametersComponent implements OnInit {
   durationInSeconds = 5;
   dataSchema = USER_SCHEMA;
   loading = true;
+  userData: any;
 
-  constructor(private parametersService: ParametersService) { }
+  constructor(private parametersService: ParametersService, private _snackBar: MatSnackBar, private authService:SocialAuthService) { }
 
   ngOnInit(): void {
     this.getParameters();
     this.getUsers();
+    this.getUserData();
+  }
+
+  getUserData(): void{
+    this.authService.authState.subscribe(user=>{this.userData = user});
   }
 
   getParameters(): void {
@@ -50,22 +57,21 @@ export class ParametersComponent implements OnInit {
     this.parametersService.setParameter(parameter)
     .subscribe((data) => {
         console.log(data);
-        this.openSnackBar(data);
+        this.openSnackBar("Success");
         return true;
     },
     (error) => {
       console.log(error);
-      this.openSnackBar(error);
+      this.openSnackBar(error.error);
       this.parameter = null;
       //return of();
       return false;
     });
   }
 
-  openSnackBar(data: any) {
-    /* this.snackBar.openFromComponent(ParametersComponent, {
-      duration: this.durationInSeconds * 1000,
-    }); */
+  openSnackBar(message: string) {
+    this._snackBar.open(message, "Dismiss");
+    setTimeout(this._snackBar.dismiss.bind(this._snackBar),5000);
   }
 
   getUsers(): void {
