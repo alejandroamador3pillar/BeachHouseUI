@@ -1,5 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
-import {AuthGuard} from '../guards/auth/auth.guard';
+import {AuthGuard} from '../services/auth/auth.guard';
 
 import { ParametersComponent } from './parameters/parameters.component';
 import { ReserveComponent } from './reserve/reserve.component';
