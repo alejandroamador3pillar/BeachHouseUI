@@ -10,6 +10,9 @@ import { IParameterModel } from '../../models/parameter.model';
 import {IReservationModel} from '../../models/reservation.model';
 import { SocialAuthService, SocialUser } from 'lib';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { IUserModel } from 'src/app/models/user.model';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 const colors: any = {
   reserved: {
@@ -318,6 +321,12 @@ export class CalendarComponent {
     templateUrl: 'dialog-data.html',
   })
   export class DialogData {
+    //Users data
+    users: IUserModel[] = [];
+    displayedColumns: string[] = ['lastName','firstName','email'];
+    dataSource = new MatTableDataSource<IUserModel>();
+
+    //Everything else
     title: string = "";
     description: string = "";
     isError: boolean = false;
@@ -333,6 +342,8 @@ export class CalendarComponent {
     isAdmin: boolean;
     ownRes=true;
 
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+
     constructor(public dialogRef: MatDialogRef<DialogData>, @Inject(MAT_DIALOG_DATA) public data: DialogData,
      private calendarService: CalendarService, private authService:SocialAuthService, private reserveService: ReserveService,
      private userService: UsersService) {
@@ -344,6 +355,15 @@ export class CalendarComponent {
       CalendarComponent.calendar.events = [];
       CalendarComponent.calendar.setDates();
       this.dialogRef.close();
+    }
+
+    getUsers(): void {
+      this.userService.getUsers(this.user.id)
+        .subscribe(users => {this.users = users;
+        this.loading = false;
+        this.dataSource=new MatTableDataSource<IUserModel>(this.users);
+        this.dataSource.paginator = this.paginator;});
+        console.log(this.users);
     }
 
     getPrice(){
