@@ -4,6 +4,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import { ParametersService } from 'src/app/services/service.index';
 import { IParameterModel } from '../../models/parameter.model';
 import { ReserveService } from 'src/app/services/service.index';
+import { SocialUser } from 'lib';
 
 const USER_SCHEMA = {
   "id": "text",
@@ -28,6 +29,7 @@ export class ReservationsComponent implements AfterViewInit {
   loading = true;
   displayedColumns: string[] = ['date', '$$delete'];
   dataSchema = USER_SCHEMA;
+  userData: SocialUser;
 
   constructor(private parametersService: ParametersService, private reservationService: ReserveService) { }
 
@@ -49,7 +51,7 @@ export class ReservationsComponent implements AfterViewInit {
   }
 
   getReservationsByUser(): void {
-    this.reservationService.getReservationsByUser()
+    this.reservationService.getReservationsByUser(this.userData.id)
       .subscribe(userReservations => {this.userReservations = userReservations;
       this.loading = false;});
   }

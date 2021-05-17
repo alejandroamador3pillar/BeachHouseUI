@@ -89,7 +89,15 @@
     <th class="left sorting_disabled" rowspan="1" colspan="1" aria-label="List of Reservations">List of Reservations</th>
     <th class="center sorting_disabled" rowspan="1" colspan="1" aria-label="CancelTransfer">Cancel</th>
   </tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;">Check In: </tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+    <td>
+      <i style="color:#00B309; font-size:20px" class="fa fa-square"></i>
+    </td>
+     <td style="padding-left:10px !important">
+      <div style="display:inline-block; margin-right:10px">
+        <b>Check In: </b>
+      </div>
+    </tr>
   </table>
   <div class="d-flex justify-content-center" *ngIf="loading">
     <div class="spinner-border" role="status">
