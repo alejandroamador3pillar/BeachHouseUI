@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
-// import { UsersComponent } from './users.component';
 import { MessageService } from '../message/message.service';
 import {  HttpClient, HttpHeaders, HttpErrorResponse,} from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { SocialUser } from 'lib';
-import { IUserModel } from '../../models/user.model';
+import { ISeasonModel } from '../../models/season.model';
 
 
 @Injectable({
   providedIn: 'root',
 })
-export class UsersService {
+export class SeasonsService {
    public APIUrl = environment.apiPath; //API URL
 
   httpOptions = {
@@ -24,50 +23,37 @@ export class UsersService {
     private messageService: MessageService
   ) {}
 
-  getUsers(user_id: string): Observable<IUserModel[]> {
+  getSeasons(user_id: string): Observable<ISeasonModel[]> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'user_id': user_id,
     });
 
-    //const parameters = of(parameters)
-    //return this.http.get<IUserModel[]>(this.APIUrl + '/user').pipe(
-    return this.http.get<IUserModel[]>(this.APIUrl + '/user',{headers} ).pipe(
-      tap((_) => this.log('fetched users')),
-      catchError(this.handleError<IUserModel[]>('getUsers', []))
+
+    return this.http.get<ISeasonModel[]>(this.APIUrl + '/season',{headers} ).pipe(
+      tap((_) => this.log('fetched seasons'))
     );
   }
 
-  isAdmin(user_id: string): Observable<any>{
-    console.log(user_id);
-    const  headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'user_id': user_id,
-    });
-    return this.http.get(this.APIUrl + '/isAdmin',{headers}).pipe(
-      tap((_) => this.log('isAdmin')));
-  }
-
-  setUsers(user: IUserModel, user_id: string): Observable<any>{
+  setSeasons(season: ISeasonModel, user_id: string): Observable<any>{
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'user_id': user_id,
     });
-    return this.http.put<IUserModel>(this.APIUrl + '/user', user, {headers} ).pipe(
-      tap((_) => this.log('seted user')),
-      catchError(this.handleError<IUserModel[]>('setUser', []))
+    return this.http.put<ISeasonModel>(this.APIUrl + '/season', season, {headers} ).pipe(
+      tap((_) => this.log('seted season'))
     );
   }
 
 
-  /** POST: add a new user to the server */
-  addUser(user: SocialUser): Observable<any> {
+
+  /* addSeason(season: SocialSeason): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      user_id: user.id,
+      id: season.id,
     });
     return this.http
-      .post<any>(this.APIUrl + '/user/sign_in', user, { headers })
+      .post<any>(this.APIUrl + '/season/sign_in', season, { headers })
       .pipe(
         catchError((e) => {
           let errorMsg: string;
@@ -78,8 +64,8 @@ export class UsersService {
           }
           return throwError(errorMsg);
         })
-      );
-  }
+       );
+  }*/
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
@@ -92,7 +78,7 @@ export class UsersService {
   }
 
   private log(message: string) {
-    this.messageService.add(`UserService: ${message}`);
+    this.messageService.add(`SeasonService: ${message}`);
   }
 
   private getServerErrorMessage(error: HttpErrorResponse): string {

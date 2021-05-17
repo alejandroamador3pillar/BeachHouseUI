@@ -8,6 +8,7 @@ import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog
 import {ParametersService} from '../../services/parameters/parameters.service';
 import { IParameterModel } from '../../models/parameter.model';
 import {IReservationModel} from '../../models/reservation.model';
+import { SocialAuthService, SocialUser } from 'lib';
 
 
 
@@ -64,7 +65,9 @@ export class CalendarComponent {
   errorDescrption: string = "";
   nights: number = 0;
 
-  constructor(private modal: NgbModal, private calendarService: CalendarService, public dialog: MatDialog, private parametersService: ParametersService) {}
+  constructor(private modal: NgbModal, private calendarService: CalendarService, public dialog: MatDialog,
+    private parametersService: ParametersService) {}
+
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -222,6 +225,7 @@ export class CalendarComponent {
                             end: endOfDay(new Date(monthsData[k].date)),
                             color: colors.reserved,
                             draggable: false,
+                            //cssClass:
                             resizable: {
                               beforeStart: true,
                               afterEnd: true,
@@ -327,16 +331,23 @@ export class CalendarComponent {
     checked=false;
     error: any;
     loading= false;
+    user: SocialUser
 
-    constructor(public dialogRef: MatDialogRef<DialogData>, @Inject(MAT_DIALOG_DATA) public data: DialogData, private calendarService: CalendarService,) {}
+    constructor(public dialogRef: MatDialogRef<DialogData>, @Inject(MAT_DIALOG_DATA) public data: DialogData,
+     private calendarService: CalendarService, private authService:SocialAuthService) {
+      this.getUserData();
+     }
 
     close(): void {
       this.description = "";
       this.dialogRef.close();
     }
 
+    getUserData(){
+      this.authService.authState.subscribe(user => {this.user = user});
+    }
     setReservation(){
       this.loading = true;
-        this.calendarService.setReservation(this.data).subscribe(x => {this.description = x; this.loading = false}, error => {this.error = error.error; this.loading = false });
+        this.calendarService.setReservation(this.data, this.user.id).subscribe(x => {this.description = x; this.loading = false}, error => {this.error = error.error; this.loading = false;});
     }
   }

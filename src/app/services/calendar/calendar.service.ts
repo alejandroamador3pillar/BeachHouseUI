@@ -6,12 +6,14 @@ import { catchError, map, tap } from 'rxjs/operators';
 // import { CalendarComponent} from '../calendar/calendar.component';
 // import { ReserveComponent} from '../reserve/reserve.component';
 import {IReservationModel} from '../../models/reservation.model';
+import { SocialAuthService, SocialUser } from 'lib';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class CalendarService {
+  user:SocialUser;
 
   APIUrl = 'https://localhost:44377';//API URL pending to make global
 
@@ -22,12 +24,19 @@ export class CalendarService {
 
   constructor(
     private http: HttpClient,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    private authService: SocialAuthService) {
+      this.getUserData();
+    }
 
   getReservations():  Observable<any[]>{
     return this.http.post<any[]>(this.APIUrl+'/reservations', /*user,*/ this.httpOptions).pipe(
       catchError(this.handleError<any[]>('getReservations'))
     );
+  }
+
+  getUserData():void{
+    this.authService.authState.subscribe(user=>{this.user = user});
   }
 
   getAvailableDates(month: number, year: number):  Observable<IReservationModel[]>{
@@ -58,12 +67,12 @@ export class CalendarService {
     );
   }
 
-  setReservation(data: any): Observable<any> {
+  setReservation(data: any, user_id: string): Observable<any> {
     var body: string = JSON.stringify({"StartDate": new Date(data.checkIn).toJSON(), "LocationId": 1, "Nights": data.nights} );
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'user_id': '103205611098648087343',
-      'requestor': '103205611098648087343',
+      'user_id': user_id,
+      'requestor': user_id,
     });
 
     return this.http.post<any>(this.APIUrl+'/reservation', body, {headers})
