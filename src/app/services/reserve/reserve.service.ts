@@ -25,7 +25,9 @@ export class ReserveService {
       tap(_ => this.log('fetched Reservations')),
       catchError(this.handleError<any[]>('getReservations', []))
     );
+
   }
+
 
   cancelReservation(user_id: number, reservation_id: number):  Observable<Boolean[]>{
     var body: string = JSON.stringify({"user_id": user_id, "reservation_id": reservation_id} );
@@ -58,6 +60,15 @@ export class ReserveService {
       catchError(this.handleError<any[]>('getReservations', []))
     );
   }
+
+ 
+  getPrice(datetime:Date, days:number ): Observable<any> {
+    return this.http.get(this.APIUrl+'/reservations/price/'+datetime+'/'+days)
+    .pipe(
+      tap(_ => this.log('fetched Reservations'))
+    );
+  }
+
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
