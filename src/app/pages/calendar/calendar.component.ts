@@ -225,6 +225,7 @@ export class CalendarComponent {
                             end: endOfDay(new Date(monthsData[k].date)),
                             color: colors.reserved,
                             draggable: false,
+                            //cssClass:
                             resizable: {
                               beforeStart: true,
                               afterEnd: true,
