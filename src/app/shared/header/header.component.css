@@ -37,3 +37,9 @@
    top: 25px;
    right: 30px;
 }
+
+.izq{
+  position: absolute;
+  top: 78px;
+  right: -30px;
+  }

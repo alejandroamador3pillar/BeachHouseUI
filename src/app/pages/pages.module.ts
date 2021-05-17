@@ -21,6 +21,7 @@ import { AccountComponent } from './account/account.component';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { UsersComponent } from './users/users.component';
 import { CalendarComponent, DialogData } from './calendar/calendar.component';
+import { SeasonsComponent } from './seasons/seasons.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
@@ -31,7 +32,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ReservationsComponent,
     UsersComponent,
     CalendarComponent,
-    DialogData
+    DialogData,
+    SeasonsComponent
   ],
   exports: [CalendarComponent],
   entryComponents: [DialogData],
