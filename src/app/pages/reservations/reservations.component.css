@@ -17,3 +17,24 @@
     width: 90%;
     margin: auto;
 }
+
+table.dataTable.no-footer {
+  border-bottom: 1px solid #111111;
+}
+
+#datagrid th {
+  border-right: 1px solid #CCC;
+  border-top: 1px solid #CCC;
+  color: black;
+}
+table.dataTable thead th, table.dataTable thead td {
+  padding: 10px 18px;
+  border-bottom: 1px solid #111111;
+}
+.center {
+  margin: 0;
+  /*position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);*/
+}

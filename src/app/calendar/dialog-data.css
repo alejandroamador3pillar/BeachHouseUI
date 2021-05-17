@@ -1,0 +1,23 @@
+
+.mat-dialog-title {
+    margin: -15px -15px 20px;
+    display: block;
+    background: gray;
+    border-radius: 4px;
+    color: white;
+    padding-left: 15px;
+}
+
+.mat-dialog-actions {
+    padding: 8px 0;
+}
+
+/*.reservation-summary tr.summary > td {
+    width: 65%;
+    border-bottom: 1px dotted gray;
+} */
+.summary{
+    width: 65%;
+    border-bottom: 1px dotted gray;
+}
+
