@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UsersService } from 'src/app/services/service.index';
 import { IUserModel } from '../../models/user.model';
 import {SocialUser } from 'lib';
 import { SocialAuthService } from 'lib';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
 import { of } from 'rxjs';
 
 const USER_SCHEMA = {
@@ -28,10 +30,13 @@ export class UsersComponent implements OnInit {
   displayedColumns: string[] = ['id','lastName','firstName', 'role', 'active', 'email','phone', '$$edit'];
   durationInSeconds = 5;
   dataSchema = USER_SCHEMA;
+  dataSource = new MatTableDataSource<IUserModel>();
   loading = true;
   userData: SocialUser;
 
   constructor(private usersService: UsersService, private _snackBar: MatSnackBar, private authService:SocialAuthService) { }
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngOnInit(): void {
     this.getUserData();
@@ -52,7 +57,9 @@ export class UsersComponent implements OnInit {
   getUsers(): void {
     this.usersService.getUsers(this.userData.id)
       .subscribe(users => {this.users = users;
-      this.loading = false});
+      this.loading = false;
+      this.dataSource=new MatTableDataSource<IUserModel>(this.users);
+      this.dataSource.paginator = this.paginator;});
       console.log(this.users);
   }
 

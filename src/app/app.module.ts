@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import {DatePipe} from '@angular/common';
 
 import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -31,6 +32,7 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 @NgModule({
@@ -39,6 +41,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    MatPaginatorModule,
     SocialLoginModule,
     BrowserAnimationsModule,
     MaterialModule,
@@ -52,6 +55,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
   ],
   providers: [
+    DatePipe,
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {

@@ -8,6 +8,18 @@
 <div>
   <table class="reservation-summary">
     <tbody>
+      <div *ngIf="isAdmin">
+        <mat-checkbox class="example-margin" [(ngModel)]="ownRes">Own reservation</mat-checkbox>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Select user</mat-label>
+          <mat-select [disabled]="ownRes">
+            <mat-option value=1>
+              1
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
       <tr>
         <th colspan="2">Reservation Summary</th>
       </tr>
@@ -31,11 +43,11 @@
       </tr>
       <tr class="summary">
         <td>{{data.checkIn}} <i class="fa fa-caret-right"></i> {{data.checkOut}}  :</td>
-        <td>$ {{data.nights * 30 }} (USD)</td>
+        <td>$ {{price }} (USD)</td>
       </tr>
       <tr>
         <td>Total Charge: </td>
-        <td>$ {{data.nights * 30 }} (USD)</td>
+        <td>$ {{price }} (USD)</td>
       </tr>
       <tr>
         <td>Charge per person  (Full Occupancy): </td>

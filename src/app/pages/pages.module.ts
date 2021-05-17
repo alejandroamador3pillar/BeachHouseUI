@@ -23,6 +23,7 @@ import { UsersComponent } from './users/users.component';
 import { CalendarComponent, DialogData } from './calendar/calendar.component';
 import { SeasonsComponent } from './seasons/seasons.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     SharedModule,
     PAGES_ROUTES,
     FormsModule,
+    MatPaginatorModule,
     MatSnackBarModule,
     MaterialModule,
     FlatpickrModule.forRoot(),

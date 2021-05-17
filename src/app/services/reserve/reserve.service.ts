@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import {MessageService} from '../message/message.service';
 import { SocialAuthService } from 'lib';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,8 @@ export class ReserveService {
   constructor(
     private http: HttpClient,
     private messageService: MessageService,
-    private authService: SocialAuthService) { }
+    private authService: SocialAuthService,
+    private datePipe: DatePipe) { }
 
   getReservations(): Observable<any[]> {
     return this.http.get<any[]>(this.APIUrl+'/reservations')
@@ -53,7 +55,7 @@ export class ReserveService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'user_id': user_id, //change for global user_id
-      'requestor': '101790084427153843849',
+      'requestor': user_id,
       'mode': '1' //only active
     });
     return this.http.get<any[]>(this.APIUrl+'/reservation/user_reservations',{headers})
@@ -65,7 +67,9 @@ export class ReserveService {
 
 
   getPrice(datetime:Date, days:number ): Observable<any> {
-    return this.http.get(this.APIUrl+'/reservations/price/'+datetime+'/'+days)
+    var d = this.datePipe.transform(datetime,"yyyy-MM-dd").toString();
+    console.log(d);
+    return this.http.get(this.APIUrl+'/reservation/price/'+d+'/'+days)
     .pipe(
       tap(_ => this.log('fetched Reservations'))
     );

@@ -67,12 +67,14 @@ export class AppComponent {
     this.authService.signOut();
     sessionStorage.clear();
     this.logoutModal?.hide();
+    sessionStorage.clear();
     this.router.navigate(['../login']);
   }
 
   stay(): void{
     this.logoutModal?.hide();
     this.reset();
+
   }
 
 
