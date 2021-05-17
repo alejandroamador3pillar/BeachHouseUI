@@ -32,6 +32,7 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    MatPaginatorModule,
     SocialLoginModule,
     BrowserAnimationsModule,
     MaterialModule,
