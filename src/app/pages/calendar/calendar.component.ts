@@ -3,7 +3,7 @@ import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMo
 import { Observable, Subject, forkJoin } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView,} from 'angular-calendar';
-import { CalendarService, ReserveService } from 'src/app/services/service.index';
+import { CalendarService, ReserveService, UsersService } from 'src/app/services/service.index';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {ParametersService} from '../../services/parameters/parameters.service';
 import { IParameterModel } from '../../models/parameter.model';
@@ -333,27 +333,40 @@ export class CalendarComponent {
     loading= false;
     user: SocialUser;
     price: number;
+    isAdmin: boolean;
+    ownRes=true;
 
     constructor(public dialogRef: MatDialogRef<DialogData>, @Inject(MAT_DIALOG_DATA) public data: DialogData,
-     private calendarService: CalendarService, private authService:SocialAuthService, private reserveService: ReserveService) {
+     private calendarService: CalendarService, private authService:SocialAuthService, private reserveService: ReserveService,
+     private userService: UsersService) {
       this.getUserData();
       this.getPrice();
      }
-
     close(): void {
       this.description = "";
       this.dialogRef.close();
     }
 
     getPrice(){
-      this.reserveService.getPrice(this.data.checkIn,this.data.nights).subscribe(price => this.price=price);
+      this.reserveService.getPrice(new Date(this.data.checkIn),this.data.nights).subscribe(price => {this.price=price});
     }
 
     getUserData(){
-      this.authService.authState.subscribe(user => {this.user = user});
+      this.authService.authState.subscribe(user=>{
+        this.user = user;
+        this.userService.isAdmin(user.id).subscribe(valid => {
+          if(valid==200){
+            this.isAdmin = true;
+          }else{
+            this.isAdmin = false;
+          }
+        },
+        error =>{this.isAdmin=false; console.log(error.error)})
+      });
     }
     setReservation(){
+      console.log(this.data);
       this.loading = true;
-        this.calendarService.setReservation(this.data, this.user.id).subscribe(x => {this.description = x; this.loading = false}, error => {this.error = error.error; this.loading = false;});
+        this.calendarService.setReservation(this.data, this.user.id).subscribe(x => {this.description = x; this.loading = false; window.location.reload()}, error => {this.error = error.error; this.loading = false;});
     }
   }
