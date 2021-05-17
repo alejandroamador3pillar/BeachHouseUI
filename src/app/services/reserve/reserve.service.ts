@@ -63,8 +63,9 @@ export class ReserveService {
     );
   }
 
- 
-  getPrice(datetime:Date, days:number ): Observable<any> {
+
+  getPrice(datetime:string, days:number): Observable<any> {
+    console.log(datetime);
     return this.http.get(this.APIUrl+'/reservations/price/'+datetime+'/'+days)
     .pipe(
       tap(_ => this.log('fetched Reservations'))

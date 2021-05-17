@@ -3,7 +3,7 @@ import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMo
 import { Observable, Subject, forkJoin } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView,} from 'angular-calendar';
-import { CalendarService } from 'src/app/services/service.index';
+import { CalendarService, ReserveService } from 'src/app/services/service.index';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {ParametersService} from '../../services/parameters/parameters.service';
 import { IParameterModel } from '../../models/parameter.model';
@@ -330,16 +330,22 @@ export class CalendarComponent {
     checked=false;
     error: any;
     loading= false;
-    user: SocialUser
+    user: SocialUser;
+    price: number;
 
     constructor(public dialogRef: MatDialogRef<DialogData>, @Inject(MAT_DIALOG_DATA) public data: DialogData,
-     private calendarService: CalendarService, private authService:SocialAuthService) {
+     private calendarService: CalendarService, private authService:SocialAuthService, private reserveService: ReserveService) {
       this.getUserData();
+      this.getPrice();
      }
 
     close(): void {
       this.description = "";
       this.dialogRef.close();
+    }
+
+    getPrice(){
+      this.reserveService.getPrice(this.data.checkIn,this.data.nights).subscribe(price => this.price=price);
     }
 
     getUserData(){

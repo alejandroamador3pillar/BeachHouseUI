@@ -32,6 +32,7 @@ export class HeaderComponent implements OnInit {
   }
   signOut(): void {
     this.authService.signOut();
+    sessionStorage.clear();
     window.location.reload();
   }
 
