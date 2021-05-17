@@ -3,11 +3,12 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 @import "../node_modules/angular-calendar/css/angular-calendar.css";
+@import "../src/app/pages/calendar/calendar.component.css";
 
 /*overrides calendar styles*/
-@mixin cal-cell-background($color1:#D24DFF, $color2:#D24DFF, $degree:135){   
+@mixin cal-cell-background($color1:#D24DFF, $color2:#D24DFF, $degree:135){
     .cal-month-view .cal-cell.cal-has-events {
-        background: linear-gradient(135deg, $color1 50%, $color2 50%);  
+        background: linear-gradient(135deg, $color1 50%, $color2 50%);
     }
 }
 
@@ -24,37 +25,37 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .cal-month-view .cal-cell .cal-event {
     display: none;
- }  
+ }
 
  .cal-month-view .cal-day-cell {
     /* background-color: rgb(210, 77, 255) !important; */
     visibility: visible;
-  } 
+  }
 
   .cal-month-view .cal-cell-row .cal-cell:hover,
   .cal-month-view .cal-cell.cal-has-events.cal-open {
     /* background: linear-gradient(135deg, #D24DFF 50%, #7B7B7B 50%);   */
     @include cal-cell-background();
-} 
+}
 
 .cal-month-view .cal-day-cell.cal-in-month.cal-has-events {
    /*  background: linear-gradient(135deg, #D24DFF 50%, #7B7B7B 50%);*/
     background-color: #fac7a5;
-} 
+}
 
 .cal-month-view .cal-day-cell.cal-in-month.cal-has-events :hover{
   /*  background: linear-gradient(135deg, #D24DFF 50%, #7B7B7B 50%);*/
    background-color: #fff;
-} 
+}
 
 .cal-month-view .cal-day-cell.cal-in-month{
     background-color: rgb(199, 255, 199);
-}   
+}
 
-/* 
+/*
     .calendar.cal-month-view {
       background-color: #ff0101; }
- 
+
     .cal-cell-row .cal-cell:hover,
     .cal-cell.cal-has-events.cal-open {
       background-color: red;
@@ -62,23 +63,23 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
      .cal-days{
       background-color: #D24DFF;
-      background: linear-gradient(45deg, #D24DFF 50%, #7B7B7B 50%); 
-      
-    } 
-    
+      background: linear-gradient(45deg, #D24DFF 50%, #7B7B7B 50%);
+
+    }
+
     .cal-has-events{
       background-color: seagreen;
-    } 
+    }
 
     .calendar.mwl-calendar-month-cell.cal-cell.cal-day-cell.cal-past.cal-in-month.cal-has-events.ng-star-inserted{
-     
-       background-color: #ff0101; 
+
+       background-color: #ff0101;
   }
-   
+
  .cal-month-view .cal-day-cell.cal-in-month.cal-has-events {
   background-color: seagreen;
 }
-  
+
 .cal-cell.cal-day-cell.cal-future.cal-weekend.cal-in-month.ng-star-inserted.cal-has-events {
   background-color: yellow;
 }
@@ -95,7 +96,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     .cal-cell.cal-has-events.cal-open {
       background-color: blue;
     }
- 
+
     .cal-month-view.cal-days {
       background-color: chocolate;
     }
@@ -106,4 +107,3 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
 
- 

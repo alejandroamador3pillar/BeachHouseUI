@@ -27,6 +27,38 @@ export class ReserveService {
     );
   }
 
+  cancelReservation(user_id: number, reservation_id: number):  Observable<Boolean[]>{
+    var body: string = JSON.stringify({"user_id": user_id, "reservation_id": reservation_id} );
+
+    return this.http.put<Boolean[]>(this.APIUrl+'/reservation/cancel', body, this.httpOptions)
+    .pipe(
+      tap((response: any) => {
+        if(response.status == "200"){
+            true;
+        }else{
+            console.log("Error cancelling reservation: " + response.status);
+            false;
+        }
+    })
+      ,
+      catchError(this.handleError<Boolean[]>('getCancelReservation', []))
+    );
+  }
+
+  getReservationsByUser(): Observable<any[]> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'user_id': '101790084427153843849', //change for global user_id
+      'requestor': '101790084427153843849',
+      'mode': '1' //only active
+    });
+    return this.http.get<any[]>(this.APIUrl+'/reservation/user_reservations',{headers})
+    .pipe(
+      tap(_ => this.log('fetched Reservations')),
+      catchError(this.handleError<any[]>('getReservations', []))
+    );
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 

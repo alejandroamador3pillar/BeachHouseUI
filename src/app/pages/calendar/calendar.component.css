@@ -73,6 +73,11 @@
 
     }
 
+    .half-day{
+      background: linear-gradient(45deg, #D24DFF 50%, #7B7B7B 50%) !important;
+    }
+
+
 
 
   /*clicked day
