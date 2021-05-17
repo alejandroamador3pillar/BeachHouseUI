@@ -31,7 +31,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ReservationsComponent,
     UsersComponent,
     CalendarComponent,
-    DialogData,
+    DialogData
   ],
   exports: [CalendarComponent],
   entryComponents: [DialogData],

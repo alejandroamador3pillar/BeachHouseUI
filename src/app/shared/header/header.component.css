@@ -1,13 +1,15 @@
 .navbar-light  {
-   background-color: #283132;
+  padding-left: 10px;
+   background-color: #011f44;
    position: relative;
 }
 .nav-item {
-   background-color: #283132;
+   background-color: #021b3d;
+   border: 1px solid #011f44;
 }
 
 .nav-link {
-   color: white;   
+   color: white;
 }
 
 .nav-link:hover{
@@ -15,11 +17,11 @@
 }
 .userPhoto{
    z-index: 3;
-   width: 60px; 
-   height: 60px; 
-   position: absolute; 
-   top: 25px; 
-   right: 30px;      
+   width: 60px;
+   height: 60px;
+   position: absolute;
+   top: 25px;
+   right: 30px;
 }
 .userPhoto>img{
    width: 60px;
@@ -29,9 +31,9 @@
 }
 
 .login{
-   width: 60px; 
-   height: 60px; 
-   position: absolute; 
-   top: 25px; 
+   width: 60px;
+   height: 60px;
+   position: absolute;
+   top: 25px;
    right: 30px;
 }

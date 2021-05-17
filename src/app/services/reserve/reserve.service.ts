@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import {MessageService} from '../message/message.service';
+import { SocialAuthService } from 'lib';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class ReserveService {
 
   constructor(
     private http: HttpClient,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    private authService: SocialAuthService) { }
 
   getReservations(): Observable<any[]> {
     return this.http.get<any[]>(this.APIUrl+'/reservations')

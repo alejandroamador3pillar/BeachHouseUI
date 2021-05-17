@@ -29,14 +29,14 @@ export class ParametersComponent implements OnInit {
   durationInSeconds = 5;
   dataSchema = USER_SCHEMA;
   loading = true;
-  userData: any;
+  userData: SocialUser;
 
   constructor(private parametersService: ParametersService, private _snackBar: MatSnackBar, private authService:SocialAuthService) { }
 
   ngOnInit(): void {
+    this.getUserData();
     this.getParameters();
     this.getUsers();
-    this.getUserData();
   }
 
   getUserData(): void{
@@ -51,7 +51,7 @@ export class ParametersComponent implements OnInit {
 
   setParameter(parameter: IParameterModel): void{
 
-    parameter.updated_by = "103205611098648087343";//pending to add current user
+    parameter.updated_by = this.userData.id;//pending to add current user
     //console.log(parameter);
 
     this.parametersService.setParameter(parameter)

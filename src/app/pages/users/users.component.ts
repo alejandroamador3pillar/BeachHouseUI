@@ -9,7 +9,7 @@ import { of } from 'rxjs';
 const USER_SCHEMA = {
   "id": "text",
   "role": "number",
-  "active": "int",
+  "active": "boolean",
   "email": "text",
   "firstName": "text",
   "lastName": "text",
@@ -29,17 +29,19 @@ export class UsersComponent implements OnInit {
   durationInSeconds = 5;
   dataSchema = USER_SCHEMA;
   loading = true;
-  userData: any;
+  userData: SocialUser;
 
   constructor(private usersService: UsersService, private _snackBar: MatSnackBar, private authService:SocialAuthService) { }
 
   ngOnInit(): void {
-    this.getUsers();
     this.getUserData();
   }
 
   getUserData(): void{
-    this.authService.authState.subscribe(user=>{this.userData = user});
+    this.authService.authState.subscribe(user=>{
+      this.userData = user;
+      this.getUsers();
+    });
   }
 
   openSnackBar(message: string) {
@@ -48,7 +50,7 @@ export class UsersComponent implements OnInit {
   }
 
   getUsers(): void {
-    this.usersService.getUsers()
+    this.usersService.getUsers(this.userData.id)
       .subscribe(users => {this.users = users;
       this.loading = false});
       console.log(this.users);
@@ -57,7 +59,7 @@ export class UsersComponent implements OnInit {
   setUser(user: IUserModel): void{
     user.phone=Number(user.phone);
     console.log(user);
-    this.usersService.setUsers(user)
+    this.usersService.setUsers(user,this.userData.id)
     .subscribe((data) => {
         console.log(data);
         this.openSnackBar("Success");
