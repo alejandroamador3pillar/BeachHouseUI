@@ -23,22 +23,22 @@ export class SeasonsService {
     private messageService: MessageService
   ) {}
 
-  getSeasons(): Observable<ISeasonModel[]> {
+  getSeasons(user_id: string): Observable<ISeasonModel[]> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'user_id': '112233445566',
+      'user_id': user_id,
     });
 
 
     return this.http.get<ISeasonModel[]>(this.APIUrl + '/season',{headers} ).pipe(
-      tap((_) => this.log('fetched seasons')) 
+      tap((_) => this.log('fetched seasons'))
     );
   }
 
-  setSeasons(season: ISeasonModel): Observable<any>{
+  setSeasons(season: ISeasonModel, user_id: string): Observable<any>{
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'user_id': '112233445566',
+      'user_id': user_id,
     });
     return this.http.put<ISeasonModel>(this.APIUrl + '/season', season, {headers} ).pipe(
       tap((_) => this.log('seted season'))
@@ -46,7 +46,7 @@ export class SeasonsService {
   }
 
 
-  
+
   /* addSeason(season: SocialSeason): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
