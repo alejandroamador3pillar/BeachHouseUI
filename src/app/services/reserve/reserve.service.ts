@@ -49,10 +49,10 @@ export class ReserveService {
     );
   }
 
-  getReservationsByUser(): Observable<any[]> {
+  getReservationsByUser(user_id: string): Observable<any[]> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'user_id': '101790084427153843849', //change for global user_id
+      'user_id': user_id, //change for global user_id
       'requestor': '101790084427153843849',
       'mode': '1' //only active
     });
@@ -64,8 +64,7 @@ export class ReserveService {
   }
 
 
-  getPrice(datetime:string, days:number): Observable<any> {
-    console.log(datetime);
+  getPrice(datetime:Date, days:number ): Observable<any> {
     return this.http.get(this.APIUrl+'/reservations/price/'+datetime+'/'+days)
     .pipe(
       tap(_ => this.log('fetched Reservations'))
