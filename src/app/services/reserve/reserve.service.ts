@@ -25,7 +25,17 @@ export class ReserveService {
       tap(_ => this.log('fetched Reservations')),
       catchError(this.handleError<any[]>('getReservations', []))
     );
+
   }
+
+  getPrice(datetime:Date, days:number ): Observable<any> {
+    return this.http.get(this.APIUrl+'/reservations/price/'+datetime+'/'+days)
+    .pipe(
+      tap(_ => this.log('fetched Reservations'))
+    );
+  }
+
+
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

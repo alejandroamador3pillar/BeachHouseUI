@@ -1,0 +1,62 @@
+<div class="seasons">
+
+    <h2 class="header">Seasons</h2>
+    <div>
+        <i class="fa fa-check"></i>&nbsp;Here you will be able to edit the value for each Season and set a starting and ending date for them.<br>
+    </div>
+    <br />
+    <table mat-table [dataSource]="seasons">
+        <ng-container matColumnDef="{{col}}" *ngFor="let col of displayedColumns">
+            <th mat-header-cell *matHeaderCellDef>
+                <span *ngIf="col !== '$$edit'">{{col}}</span>
+            </th>
+            <td mat-cell *matCellDef="let element">
+                <div *ngIf="!element.isEdit">
+                    <div class="btn-edit" *ngIf="col === '$$edit'; spanHeader" >
+                        <div class="btn btn-primary" mat-button (click)="element.isEdit = !element.isEdit">Edit</div>
+                    </div>
+                    <ng-template #spanHeader *ngIf="dataSchema[col] === 'boolean'; else normalField">
+                           <span>
+                               <mat-checkbox [(ngModel)]="element[col]"></mat-checkbox>
+                        </span>
+                    </ng-template>
+                    <ng-template #normalField>
+                        <span >{{element[col]}}</span>
+                    </ng-template>
+                </div>
+                <div *ngIf="element.isEdit">
+                    <div class="btn-edit" *ngIf="col === '$$edit'; else checkField">
+                         <div class="btn btn-danger" mat-button (click)="element.isEdit = !element.isEdit; setSeason(element);">Done</div> 
+                    </div>
+                    <ng-template #checkField>
+                        <mat-form-field appearance="text-center" #elseDate *ngIf="dataSchema[col] === 'boolean'; else defaultField">
+                            <mat-label>Choose if active</mat-label>
+                            <input  matInput>
+                            <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> -->
+                            <mat-checkbox  #picker [(ngModel)]="element[col]"></mat-checkbox>
+                        </mat-form-field>
+                    </ng-template>
+                    <ng-template #defaultField>
+                        <mat-form-field>
+                            <mat-label>{{col}}</mat-label>
+                            <input type="{{dataSchema[col]}}" matInput [(ngModel)]="element[col]">
+                        </mat-form-field>
+                    </ng-template>
+                </div>
+            </td>
+             
+
+
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <div class="d-flex justify-content-center" *ngIf="loading">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+</div>
+
+
+
