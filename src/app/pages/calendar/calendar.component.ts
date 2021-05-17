@@ -9,8 +9,7 @@ import {ParametersService} from '../../services/parameters/parameters.service';
 import { IParameterModel } from '../../models/parameter.model';
 import {IReservationModel} from '../../models/reservation.model';
 import { SocialAuthService, SocialUser } from 'lib';
-
-
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 const colors: any = {
   reserved: {
@@ -25,7 +24,6 @@ const colors: any = {
     primary: '#D24DFF',
     secondary: '#D24DFF',
   },
-
 };
 
 @Component({
@@ -37,8 +35,6 @@ const colors: any = {
 export class CalendarComponent {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
 
-  // reservations: ReserveComponent[];
-  // availableDates: ReserveComponent[]= [];
   parameters: IParameterModel[] = [];
 
   view: CalendarView = CalendarView.Month;
@@ -64,9 +60,12 @@ export class CalendarComponent {
   clearVisible: boolean = false;
   errorDescrption: string = "";
   nights: number = 0;
+  static calendar;
 
   constructor(private modal: NgbModal, private calendarService: CalendarService, public dialog: MatDialog,
-    private parametersService: ParametersService) {}
+    private parametersService: ParametersService, private _snackBar: MatSnackBar) {
+      CalendarComponent.calendar = this;
+    }
 
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
@@ -87,15 +86,12 @@ export class CalendarComponent {
           else{
             this.errorPopUp(this.errorDescrption);
           } */
-
-
         }
         else{
           this.checkIn = date;
           this.clearVisible = true;
           console.log('first: ' + this.checkIn);//Apply style
         }
-
       /* } else {
         this.activeDayIsOpen = false;
         this.clear =true;
@@ -215,7 +211,6 @@ export class CalendarComponent {
                                 beforeStart: true,
                                 afterEnd: true,
                               }}; */
-
               }
               else{
                 newEvent =
@@ -247,9 +242,6 @@ export class CalendarComponent {
         title: 'Reservation'
       }
     });
-    //this.calendarService.setReservation();
-    /*this.events = [];
-    this.setDates();*/
   }
 
   reservePopUp(): void {
@@ -312,9 +304,14 @@ export class CalendarComponent {
 
   }
 
+  openSnackBar(message: string) {
+    this._snackBar.open(message, "Dismiss");
+    setTimeout(this._snackBar.dismiss.bind(this._snackBar),5000);
+  }
+
 }
 
-
+///Dialog Data component
 @Component({
     selector: 'dialog-data',
    // styleUrls: ['.dialog-data.css'],
@@ -344,6 +341,8 @@ export class CalendarComponent {
      }
     close(): void {
       this.description = "";
+      CalendarComponent.calendar.events = [];
+      CalendarComponent.calendar.setDates();
       this.dialogRef.close();
     }
 
@@ -364,9 +363,18 @@ export class CalendarComponent {
         error =>{this.isAdmin=false; console.log(error.error)})
       });
     }
+
     setReservation(){
       console.log(this.data);
       this.loading = true;
-        this.calendarService.setReservation(this.data, this.user.id).subscribe(x => {this.description = x; this.loading = false; window.location.reload()}, error => {this.error = error.error; this.loading = false;});
+        this.calendarService.setReservation(this.data, this.user.id)
+        .subscribe(x => {this.description = x;
+                          this.loading = false;
+                          CalendarComponent.calendar.openSnackBar("Success");},
+          error => {this.error = error.error;
+                     this.loading = false;
+                      CalendarComponent.calendar.openSnackBar(error.error);});
+
+      this.close();
     }
   }

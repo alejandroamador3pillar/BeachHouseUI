@@ -20,7 +20,7 @@
    width: 60px;
    height: 60px;
    position: absolute;
-   top: 25px;
+   top: 15px;
    right: 30px;
 }
 .userPhoto>img{
@@ -40,6 +40,13 @@
 
 .izq{
   position: absolute;
-  top: 78px;
-  right: -30px;
-  }
+  top: 88.5px;
+  left: -70px;
+}
+
+.userPhoto>span{
+   position: absolute;
+   top:65px;
+   color: aliceblue;
+   left: -140px;
+}
