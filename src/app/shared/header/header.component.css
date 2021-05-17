@@ -1,9 +1,11 @@
 .navbar-light  {
-   background-color: #283132;
+  padding-left: 10px;
+   background-color: #011f44;
    position: relative;
 }
 .nav-item {
-   background-color: #283132;
+   background-color: #021b3d;
+   border: 1px solid #011f44;
 }
 
 .nav-link {

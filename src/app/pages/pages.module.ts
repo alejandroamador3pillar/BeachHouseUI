@@ -33,7 +33,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     UsersComponent,
     CalendarComponent,
     DialogData,
-    SeasonsComponent,
+    SeasonsComponent
   ],
   exports: [CalendarComponent],
   entryComponents: [DialogData],
