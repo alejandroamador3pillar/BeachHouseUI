@@ -1,4 +1,4 @@
-<h1 mat-dialog-title class="mat-dialog-title ">{{data.title}}</h1>
+<h1 mat-dialog-title class="mat-dialog-title" style="margin: -15px -15px 20px; display: block; background: gray;border-radius: 4px;color: white; padding-left: 15px;">{{data.title}}</h1>
 <!-- <div *ng-If="{{data.isError}}"> -->
   <div mat-dialog-content>
   <!-- <mat-form-field> -->
@@ -23,11 +23,11 @@
       <tr>
         <th colspan="2">Reservation Summary</th>
       </tr>
-      <tr class="summary">
+      <tr class="summary" style="width: 65%; border-bottom: 1px dotted gray;">
         <td>Check In: </td>
         <td>{{data.checkIn}}</td>
       </tr>
-      <tr class="summary">
+      <tr class="summary" style="width: 65%; border-bottom: 1px dotted gray;">
         <td>Check Out: </td>
         <td>{{data.checkOut}}</td>
       </tr>
@@ -41,7 +41,7 @@
       <tr>
         <th colspan="2">Rates</th>
       </tr>
-      <tr class="summary">
+      <tr class="summary" style="width: 65%; border-bottom: 1px dotted gray;">
         <td>{{data.checkIn}} <i class="fa fa-caret-right"></i> {{data.checkOut}}  :</td>
         <td>$ {{price }} (USD)</td>
       </tr>
@@ -72,7 +72,7 @@
 </div>
 <p style="color: red;">{{error}}</p>
 <br/>
-<mat-dialog-actions>
+<mat-dialog-actions style="padding: 8px 0;">
     <button class="btn btn-primary"  mat-button (click)="setReservation()"  [disabled]="!this.checked">Accept Reservation</button>
     <div class="btn btn-danger" mat-button (click)="close()">Cancel</div>
 </mat-dialog-actions>

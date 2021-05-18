@@ -1,13 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-
 import { SocialAuthService } from 'lib';
 import { SocialUser } from 'lib';
 import { ParametersService } from 'src/app/services/service.index';
-import { GoogleLoginProvider} from 'lib';
+import { GoogleLoginProvider } from 'lib';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AppComponent } from '../app.component';
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +21,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: SocialAuthService,
     private parametersService: ParametersService,
-    private ruta:Router
+    private ruta: Router
   ) {
 
   }
@@ -30,16 +29,16 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
       this.user = user;
-      sessionStorage.setItem("img",user.photoUrl);
+      sessionStorage.setItem("img", user.photoUrl);
     });
 
   }
 
   async signInWithGoogle(): Promise<void> {
     await this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
-    this.ruta.navigate(['../reserve']);
     this.addUser();
     AppComponent.app.reset();
+    this.ruta.navigate(['../reserve']);
   }
 
   signOut(): void {
@@ -59,8 +58,8 @@ export class LoginComponent implements OnInit {
     this.parametersService.addUser(this.user)
       .subscribe(
         (data) => {
-            console.log(data);
-            //redirect home
+          console.log(data);
+          //redirect home
         },
         (error) => {
           //mensaje al usuario
