@@ -99,11 +99,12 @@
       </div>
     </tr>
   </table>
-  <div class="d-flex justify-content-center" *ngIf="loading">
-    <div class="spinner-border" role="status">
-      <span class="sr-only">Loading...</span>
-    </div>
-  </div>
+  <mat-paginator [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
+        <div class="d-flex justify-content-center" *ngIf="loading">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
 
             <!--<tbody>
               <ng-container matColumnDef="position">

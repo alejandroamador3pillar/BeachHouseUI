@@ -50,6 +50,11 @@ export class ReservationsComponent implements AfterViewInit {
     this.authService.authState.subscribe(user => { this.userData = user });
   }
 
+  openSnackBar(message: string) {
+    this._snackBar.open(message, "Dismiss");
+    setTimeout(this._snackBar.dismiss.bind(this._snackBar), 5000)
+  }
+
   getParameters(): void {
     this.parametersService.getParameters()
       .subscribe(parameters => {
@@ -69,7 +74,18 @@ export class ReservationsComponent implements AfterViewInit {
 
   cancelReservation(user_id: number, res_id: number) {
     this.reservationService.cancelReservation(user_id, res_id)
-      .subscribe();
+      .subscribe((data) => {
+        console.log(data);
+        this.openSnackBar("Success");
+        return true;
+      },
+        (error) => {
+          console.log(error);
+          this.openSnackBar(error.error);
+          //this.user = null;
+          //return of();
+          return false;
+        });
 
   }
 
