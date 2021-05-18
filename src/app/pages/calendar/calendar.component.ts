@@ -3,13 +3,16 @@ import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMo
 import { Observable, Subject, forkJoin } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView,} from 'angular-calendar';
-import { CalendarService } from 'src/app/services/service.index';
+import { CalendarService, ReserveService, UsersService } from 'src/app/services/service.index';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {ParametersService} from '../../services/parameters/parameters.service';
 import { IParameterModel } from '../../models/parameter.model';
 import {IReservationModel} from '../../models/reservation.model';
 import { SocialAuthService, SocialUser } from 'lib';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { IUserModel } from 'src/app/models/user.model';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 const colors: any = {
   reserved: {
@@ -318,6 +321,12 @@ export class CalendarComponent {
     templateUrl: 'dialog-data.html',
   })
   export class DialogData {
+    //Users data
+    users: IUserModel[] = [];
+    displayedColumns: string[] = ['lastName','firstName','email'];
+    dataSource = new MatTableDataSource<IUserModel>();
+
+    //Everything else
     title: string = "";
     description: string = "";
     isError: boolean = false;
@@ -328,13 +337,19 @@ export class CalendarComponent {
     checked=false;
     error: any;
     loading= false;
-    user: SocialUser
+    user: SocialUser;
+    price: number;
+    isAdmin: boolean;
+    ownRes=true;
+
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
     constructor(public dialogRef: MatDialogRef<DialogData>, @Inject(MAT_DIALOG_DATA) public data: DialogData,
-     private calendarService: CalendarService, private authService:SocialAuthService) {
+     private calendarService: CalendarService, private authService:SocialAuthService, private reserveService: ReserveService,
+     private userService: UsersService) {
       this.getUserData();
+      this.getPrice();
      }
-
     close(): void {
       this.description = "";
       CalendarComponent.calendar.events = [];
@@ -342,11 +357,35 @@ export class CalendarComponent {
       this.dialogRef.close();
     }
 
+    getUsers(): void {
+      this.userService.getUsers(this.user.id)
+        .subscribe(users => {this.users = users;
+        this.loading = false;
+        this.dataSource=new MatTableDataSource<IUserModel>(this.users);
+        this.dataSource.paginator = this.paginator;});
+        console.log(this.users);
+    }
+
+    getPrice(){
+      this.reserveService.getPrice(new Date(this.data.checkIn),this.data.nights).subscribe(price => {this.price=price});
+    }
+
     getUserData(){
-      this.authService.authState.subscribe(user => {this.user = user});
+      this.authService.authState.subscribe(user=>{
+        this.user = user;
+        this.userService.isAdmin(user.id).subscribe(valid => {
+          if(valid==200){
+            this.isAdmin = true;
+          }else{
+            this.isAdmin = false;
+          }
+        },
+        error =>{this.isAdmin=false; console.log(error.error)})
+      });
     }
 
     setReservation(){
+      console.log(this.data);
       this.loading = true;
         this.calendarService.setReservation(this.data, this.user.id)
         .subscribe(x => {this.description = x;

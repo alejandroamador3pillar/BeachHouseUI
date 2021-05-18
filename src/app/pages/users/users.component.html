@@ -5,7 +5,7 @@
         <i class="fa fa-check"></i>&nbsp;Here you will be able to edit the value for each User and set a starting and ending date for them.<br>
     </div>
     <br />
-    <table mat-table [dataSource]="users">
+    <table mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="{{col}}" *ngFor="let col of displayedColumns">
             <th mat-header-cell *matHeaderCellDef>
                 <span *ngIf="col !== '$$edit'">{{col}}</span>
@@ -52,6 +52,7 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
+        <mat-paginator [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
         <div class="d-flex justify-content-center" *ngIf="loading">
           <div class="spinner-border" role="status">
             <span class="sr-only">Loading...</span>

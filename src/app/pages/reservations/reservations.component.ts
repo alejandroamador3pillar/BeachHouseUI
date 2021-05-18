@@ -59,11 +59,12 @@ export class ReservationsComponent implements AfterViewInit {
   }
 
   getReservationsByUser(): void {
-    this.reservationService.getReservationsByUser(this.userData.id)
-      .subscribe(userReservations => {
-        this.userReservations = userReservations;
-        this.loading = false;
-      });
+    this.authService.authState.subscribe(user=>{
+      this.reservationService.getReservationsByUser(user.id)
+      .subscribe(userReservations => {this.userReservations = userReservations;
+      this.loading = false;});
+    });
+
   }
 
   cancelReservation(user_id: number, res_id: number) {
